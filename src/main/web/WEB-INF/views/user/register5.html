@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	  layout:decorator="../../public/register">
+	<head>
+	</head>
+	<body>
+		<div class="container-fluid" layout:fragment="content">
+			<div class="center">
+				<form name="inviteForm" >
+					<input type="hidden" name="email" th:value="${email}"/>
+					<div class="invite">
+						<div class="invite_box">
+							<div class="invite_box_l">邀请码</div>
+							<input type="text" class="inviteCode" placeholder="请输入您的邀请码"/>
+							<div class="mistake"></div>
+							<div class="correct"></div>
+						</div>
+						<div class="ipone_box_next">
+							<div class="ipone_next">下一步</div>
+							<input type="button" class="skip" value="跳过" />
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<script type="text/javascript" th:src="@{/static/scripts/register/register5.js}" src="/static/scripts/register/register5.js"></script>
+		</div>
+	</body>
+</html>
+
+

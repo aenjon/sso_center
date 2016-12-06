@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hsjc.ssoCenter.core.mapper.SchoolInviteMapper" >
+  <resultMap id="BaseResultMap" type="com.hsjc.ssoCenter.core.domain.SchoolInvite" >
+    <id column="inviteId" property="inviteId" jdbcType="BIGINT" />
+    <result column="inviteCode" property="inviteCode" jdbcType="VARCHAR" />
+    <result column="schoolId" property="schoolId" jdbcType="INTEGER" />
+    <result column="byUserId" property="byUserId" jdbcType="BIGINT" />
+    <result column="state" property="state" jdbcType="CHAR" />
+    <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="useTime" property="useTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    inviteId, inviteCode, schoolId, byUserId, state, createTime, useTime
+  </sql>
+
+  <!--
+   @author : zga
+   @date : 2015-12-04
+   新增
+  -->
+  <insert id="insert" parameterType="com.hsjc.ssoCenter.core.domain.SchoolInvite" >
+    insert into tbschoolinvite (inviteId, inviteCode, schoolId, 
+      byUserId, state, createTime, 
+      useTime)
+    values (#{inviteId}, #{inviteCode}, #{schoolId}, 
+      #{byUserId}, #{state}, #{createTime}, 
+      #{useTime})
+  </insert>
+
+  <insert id="insertSelective" parameterType="SchoolInvite" >
+    insert into tbschoolinvite
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="inviteId != null" >
+        inviteId,
+      </if>
+      <if test="inviteCode != null" >
+        inviteCode,
+      </if>
+      <if test="schoolId != null" >
+        schoolId,
+      </if>
+      <if test="byUserId != null" >
+        byUserId,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+      <if test="useTime != null" >
+        useTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="inviteId != null" >
+        #{inviteId},
+      </if>
+      <if test="inviteCode != null" >
+        #{inviteCode},
+      </if>
+      <if test="schoolId != null" >
+        #{schoolId},
+      </if>
+      <if test="byUserId != null" >
+        #{byUserId},
+      </if>
+      <if test="state != null" >
+        #{state},
+      </if>
+      <if test="createTime != null" >
+        #{createTime},
+      </if>
+      <if test="useTime != null" >
+        #{useTime},
+      </if>
+    </trim>
+  </insert>
+
+  <!--
+    @author : zga
+    @date : 2016-2-29
+    批量插入邀请码数据
+  -->
+  <insert id="batchInsertInviteCode" parameterType="java.util.List">
+    INSERT INTO tbschoolinvite (inviteCode,schoolId,createTime)
+    VALUES
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.inviteCode},#{item.schoolId},now())
+    </foreach>
+  </insert>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbschoolinvite
+    where inviteId = #{inviteId}
+  </delete>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.hsjc.ssoCenter.core.domain.SchoolInvite" >
+    update tbschoolinvite
+    <set >
+      <if test="inviteCode != null" >
+        inviteCode = #{inviteCode},
+      </if>
+      <if test="schoolId != null" >
+        schoolId = #{schoolId},
+      </if>
+      <if test="byUserId != null" >
+        byUserId = #{byUserId},
+      </if>
+      <if test="state != null" >
+        state = #{state},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime},
+      </if>
+      <if test="useTime != null" >
+        useTime = #{useTime},
+      </if>
+    </set>
+    where inviteId = #{inviteId}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.hsjc.ssoCenter.core.domain.SchoolInvite" >
+    update tbschoolinvite
+    set inviteCode = #{inviteCode},
+      schoolId = #{schoolId},
+      byUserId = #{byUserId},
+      state = #{state},
+      createTime = #{createTime},
+      useTime = #{useTime}
+    where inviteId = #{inviteId}
+  </update>
+
+  <!--
+    @author : zga
+    @date : 2016-01-12
+    更新使用用户和使用时间
+  -->
+  <update id="updateUseTimeAndByUserId">
+    update tbschoolinvite
+    <set>
+      <if test="byUserId != null">
+        byUserId = #{byUserId},
+      </if>
+      <if test="useTime != null">
+        useTime = #{useTime},
+      </if>
+      <if test="state != null">
+        state = #{state}
+      </if>
+    </set>
+    where inviteCode = #{inviteCode}
+  </update>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from tbschoolinvite
+    where inviteId = #{inviteId}
+  </select>
+
+  <!--
+    @author : zga
+    @date :  2015-12-22
+    查询邀请码是否存在
+  -->
+  <select id="selectByInviteCode" resultType="SchoolInvite">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM tbschoolinvite
+    <where>
+      <if test="inviteCode != null">
+        inviteCode = #{inviteCode}
+      </if>
+    </where>
+    limit 1
+  </select>
+
+  <!--
+    @author : zga
+    @date : 2016-3-7
+    查询所有的邀请码
+  -->
+  <select id="selectAllSchoolInvite" resultType="java.util.HashMap">
+    SELECT
+    ts.inviteCode,
+    torg.organizationName,
+    tu.realName,
+    ts.state,
+    (DATE_FORMAT(ts.createTime,'%Y-%m-%d')) AS createTime,
+    (DATE_FORMAT(ts.useTime,'%Y-%m-%d')) AS useTime
+    FROM tbschoolinvite ts,tborganization torg,tbusermain tu
+    WHERE ts.schoolId = torg.organizationCode AND ts.byUserId = tu.id AND ts.state = 'used'
+    UNION ALL
+    SELECT ts.inviteCode,torg.organizationName,"xxx",ts.state,ts.createTime,"xxx" FROM tbschoolinvite ts,tborganization torg
+    WHERE ts.schoolId = torg.organizationCode AND ts.state = 'unused'
+  </select>
+
+  <!--
+    @author : zga
+    @date : 2016-3-14
+    查询所有的邀请码
+  -->
+  <select id="selectAllSchoolInviteWithPage" resultType="java.util.HashMap">
+    SELECT ts.inviteCode,torg.organizationName,tu.realName,ts.state,
+    (DATE_FORMAT(ts.createTime,'%Y-%m-%d')) AS createTime,
+    (DATE_FORMAT(ts.useTime,'%Y-%m-%d')) AS useTime
+    FROM tbschoolinvite ts,tborganization torg,tbusermain tu
+    <where>
+      <if test="invite == null">
+        ts.schoolId = torg.organizationCode
+        AND ts.byUserId = tu.id
+        AND ts.state = 'used'
+      </if>
+
+      <if test="organization != null">
+        AND ts.schoolId = #{organization}
+      </if>
+
+      <if test="status == 2">
+        AND ts.state = '2'
+      </if>
+
+      <if test="createTime == 3">
+        AND DATE_SUB(CURDATE(), INTERVAL 2 DAY) <![CDATA[<=]]> DATE(ts.createTime)
+      </if>
+      <if test="createTime == 7">
+        AND DATE_SUB(CURDATE(), INTERVAL 6 DAY) <![CDATA[<=]]> DATE(ts.createTime)
+      </if>
+      <if test="createTime == 30">
+        AND DATE_SUB(CURDATE(), INTERVAL 29 DAY) <![CDATA[<=]]> DATE(ts.createTime)
+      </if>
+
+      <if test="inviteCode != null">
+        AND ts.inviteCode like CONCAT('%','${inviteCode}','%')
+      </if>
+    </where>
+
+    UNION ALL
+
+    SELECT ts.inviteCode,torg.organizationName,"xxx",ts.state,
+    (DATE_FORMAT(ts.createTime,'%Y-%m-%d')) AS createTime,
+    "xxx" FROM tbschoolinvite ts,tborganization torg
+    <where>
+      <if test="invite == null">
+        ts.schoolId = torg.organizationCode
+        AND ts.state = 'unused'
+      </if>
+
+      <if test="organization != null">
+        AND ts.schoolId = #{organization}
+      </if>
+
+      <if test="status == 1">
+        AND ts.state = '2'
+      </if>
+
+      <if test="createTime == 3">
+        AND DATE_SUB(CURDATE(), INTERVAL 2 DAY) <![CDATA[<=]]> DATE(ts.createTime)
+      </if>
+      <if test="createTime == 7">
+        AND DATE_SUB(CURDATE(), INTERVAL 6 DAY) <![CDATA[<=]]> DATE(ts.createTime)
+      </if>
+      <if test="createTime == 30">
+        AND DATE_SUB(CURDATE(), INTERVAL 29 DAY) <![CDATA[<=]]> DATE(ts.createTime)
+      </if>
+
+      <if test="inviteCode != null">
+        AND ts.inviteCode like CONCAT('%','${inviteCode}','%')
+      </if>
+    </where>
+  </select>
+</mapper>

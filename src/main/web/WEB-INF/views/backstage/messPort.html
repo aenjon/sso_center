@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="../../public/backstage">
+    <head>
+        <style type="text/css">
+            input.Wdate{border:none;}
+        </style>
+    </head>
+    <body>
+        <div id="content" layout:fragment="content">
+            <div class="index_title">短信接口设置</div>
+
+            <table class="emailTab">
+                <thead>
+                <tr>
+                    <th>proKey</th>
+                    <th>proValue</th>
+                    <th>createTime</th>
+                    <th>modifyTime</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="sms:${smsList}">
+                    <input type="hidden" th:value="${sms.id}" class="eid"/>
+                    <td>
+                        <input type="text" th:value="${sms.proKey}" class="emailIn prokey" disabled="true"/>
+                    </td>
+                    <td>
+                        <input type="text" th:value="${sms.proValue}" class="emailIn emailIn2 provalue" disabled="true"/>
+                    </td>
+                    <td>
+                        <!--<td th:text="${#dates.format(email.createTime, 'yyyy-MM-dd HH:mm:ss')}">-->
+                        <input type="text" class="Wdate fromDate createtime" th:value="${#dates.format(sms.createTime, 'yyyy-MM-dd HH:mm:ss')}" disabled="true"/>
+                    </td>
+                    <td>
+                        <!-- <td th:text="${#dates.format(email.modifyTime, 'yyyy-MM-dd HH:mm:ss')}">-->
+                        <input type="text" class="Wdate toDate modifytime" th:value="${#dates.format(sms.modifyTime, 'yyyy-MM-dd HH:mm:ss')}" disabled="true"/>
+                    </td>
+                    <td>
+                        <input type="button" value="修改"  class="update"/>
+                        <div class="emailBut">
+                            <input type="button" value="确认"  class="updateL"/>
+                            <input type="button" value="取消"  class="updateR"/>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <script text="text/javascript" th:src="@{/static/scripts/WdatePicker.js}"  src="../../../static/scripts/WdatePicker.js"></script>
+            <script type="text/javascript" th:src="@{/static/scripts/backstage/messPort.js}" src="/static/scripts/backstage/messPort.js"></script>
+        </div>
+    </body>
+</html>

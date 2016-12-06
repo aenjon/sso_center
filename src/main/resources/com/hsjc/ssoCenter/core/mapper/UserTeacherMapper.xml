@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hsjc.ssoCenter.core.mapper.UserTeacherMapper">
+  <resultMap id="BaseResultMap" type="com.hsjc.ssoCenter.core.domain.UserTeacher">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="userId" jdbcType="INTEGER" property="userId" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, userId
+  </sql>
+
+  <!--
+   @author : zga
+   @date : 2015-12-04
+   新增
+  -->
+  <insert id="insert" parameterType="com.hsjc.ssoCenter.core.domain.UserTeacher">
+    insert into tbuserteacher ( userId)
+    values (#{userId})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.hsjc.ssoCenter.core.domain.UserTeacher">
+    insert into tbuserteacher
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        userId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="userId != null">
+        #{userId},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbuserteacher
+    where id = #{id}
+  </delete>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.hsjc.ssoCenter.core.domain.UserTeacher">
+    update tbuserteacher
+    <set>
+      <if test="userId != null">
+        userId = #{userId},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.hsjc.ssoCenter.core.domain.UserTeacher">
+    update tbuserteacher
+    set userId = #{userId}
+    where id = #{id}
+  </update>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbuserteacher
+    where id = #{id}
+  </select>
+</mapper>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="../../public/yun">
+<head>
+    <meta charset="UTF-8"/>
+    <title>绑定Email</title>
+</head>
+<body>
+    <div id="content" layout:fragment="content">
+        激活邮件已发送到你的邮箱<a th:href="@{${targetWebsite}}" th:text="${email}" target="_blank"
+                   style="font-size: 16px;font-weight: bold;color: #ff0000"></a>中.请注意查看!
+
+    </div>
+</body>
+</html>

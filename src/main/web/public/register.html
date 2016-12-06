@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link th:href="@{/static/css/register.css}" href="../static/css/register.css" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/static/css/bootstrap.css}" href="../static/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/static/css/validform.css}" href="../static/css/validform.css" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/static/scripts/artDialog-master/css/ui-dialog.css}" href="../static/scripts/artDialog-master/css/ui-dialog.css" rel="stylesheet" type="text/css"/>
+        <script text="text/javascript" th:src="@{/static/scripts/jquery/jquery-1.11.3.min.js}" src="../static/scripts/jquery/jquery-1.11.3.min.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/ie/html5shiv.js}" src="../static/scripts/ie/html5shiv.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/ie/placeholder.js}"  src="../static/scripts/ie/placeholder.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/bootstrap/bootstrap.min.js}" src="../static/scripts/bootstrap/bootstrap.min.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/register.js}" src="../static/scripts/register.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/validform/Validform_v5.3.2_min.js}" src="../static/scripts/validform/Validform_v5.3.2_min.js"></script>
+        <script type="text/javascript" th:src="@{/static/scripts/util/SSOUtil.js}" src="/static/scripts/util/SSOUtil.js"></script>
+        <script type="text/javascript" th:src="@{/static/scripts/constant/constant.js}" src="/static/scripts/constant/constant.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/artDialog-master/dist/dialog-min.js}" src="../static/scripts/artDialog-master/dist/dialog-min.js"></script>
+    </head>
+    <body>
+        <header class="header">
+            <div class="center">
+                <div class="h_title">完成注册只需6个简单的步骤</div>
+                <ul class="step_mark">
+                    <li class="step_mark1">1</li>
+                    <li class="step_mark2">2</li>
+                    <li class="step_mark3">3</li>
+                    <li class="step_mark4">4</li>
+                    <li class="step_mark5">5</li>
+                    <li class="step_mark6">6</li>
+                </ul>
+                <ul class="step_step">
+                    <li class="step_step1">选择角色</li>
+                    <li class="step_step2">基本信息</li>
+                    <li class="step_step3">邮箱验证</li>
+                    <li class="step_step4">手机验证</li>
+                    <li class="step_step5">邀请码验证</li>
+                    <li class="step_step6">注册成功</li>
+                  </ul>
+            </div>
+        </header>
+        <div class="container-fluid" layout:fragment="content"></div>
+        <footer class="footer">
+            <div class="center">
+                <div class="foot-size">客服电话：400-880-5056        客服邮箱：Help@hsjc.com.cn</div>
+                <div class="foot-size">共筑教育云平台 ,创建教育新模式</div>
+                <div class="foot-size">Copyright ©华师京城网络科技股份有限公司  沪IC备10208270号-3</div>
+                <div class="android">
+                    <img src="../../../static/images/yun/android.png"/>
+                    <span>For  Android</span>
+                </div>
+                <div class="ios">
+                    <img src="../../../static/images/yun/ios.png"/>
+                    <span>For  IOS</span>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

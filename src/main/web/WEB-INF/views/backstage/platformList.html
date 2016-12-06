@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="../../public/backstage">
+    <head>
+
+    </head>
+    <body>
+
+        <div id="content" layout:fragment="content">
+            <!--modify third client info start-->
+            <div class="modifiedBox">
+                <form name="modifyForm">
+                    <div class="examine_box_aside">
+                        <div class="index_title">修改平台信息</div>
+                    </div>
+                    <div class="modifiedBox_center">
+                        <table border="1">
+                            <tr>
+                                <td>平台名称</td>
+                                <td class="platform_name"></td>
+                            </tr>
+                            <tr>
+                                <td>联系人</td>
+                                <td><input name="contactorName"/></td>
+                            </tr>
+                            <tr>
+                                <td>联系电话</td>
+                                <td><input name="contactorPhone"/></td>
+                            </tr>
+                            <tr>
+                                <td>公钥</td>
+                                <td class="platform_publicKey"></td>
+                            </tr>
+                            <tr>
+                                <td>clientId</td>
+                                <td class="platform_clientId"></td>
+                            </tr>
+                            <tr>
+                                <td>clientSecret</td>
+                                <td class="platform_clientSecret"></td>
+                            </tr>
+                            <tr>
+                                <td>ssoPassword</td>
+                                <td class="platform_ssoPassword"></td>
+                            </tr>
+                            <tr>
+                                <td>回调地址</td>
+                                <td><input name="callbackUrl"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="examine_box_aside">
+                        <div class="modifieInput">
+                            <input type="button" value="保存" class="butL"/>
+                            <input type="button" value="取消" class="butR"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!--modify third client info end-->
+
+            <!--add third client info start-->
+            <div class="addBox" style="display: none;">
+                <form name="addForm">
+                    <div class="examine_box_aside">
+                        <div class="index_title">新增平台</div>
+                    </div>
+                    <div class="modifiedBox_center">
+                        <table class="modifiedBoxTab">
+                            <tr>
+                                <td style="border-right: 0px; color: red">*</td>
+                                <td>平台名称</td>
+                                <td><input name="description"/></td>
+                            </tr>
+
+                            <tr>
+                                <td style="border-right: 0px;color: red">*</td>
+                                <td>平台简称</td>
+                                <td><input name="briefName"/></td>
+                            </tr>
+                            <tr>
+                                <td style="border-right: 0px;"></td>
+                                <td>联系人</td>
+                                <td><input name="contactorName"/></td>
+                            </tr>
+                            <tr>
+                                <td style="border-right: 0px;"></td>
+                                <td>联系电话</td>
+                                <td><input name="contactorPhone"/></td>
+                            </tr>
+                            <tr>
+                                <td style="border-right: 0px;color: red">*</td>
+                                <td>回调地址</td>
+                                <td><input name="callbackUrl"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="examine_box_aside">
+                        <div class="addInput">
+                            <input type="button" value="新增" class="add_new"/>
+                            <input type="button" value="取消" class="cancel"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!--add third client info end-->
+
+            <div class="index_title">平台列表</div>
+            <div class="tab_search">
+                <div class="tab_fn">
+                    <input type="hidden" name="pageNum" th:value="${pageNum}"/>
+                    <input type="hidden" name="pageSize" th:value="${pageSize}"/>
+                    <input type="submit" value="查询" class="tab_fnLi"/>
+                </div>
+
+                <input type="text" name="query_description" th:if="${description == '0'}" placeholder="输入平台名称…"/>
+                <input type="text" name="query_description" th:unless="${description == '0'}" th:value="${description}" placeholder="输入平台名称…"/>
+            </div>
+
+            <table class="platform_tab">
+                <thead>
+                    <tr>
+                        <th>平台</th>
+                        <th>联系人</th>
+                        <th>联系电话</th>
+                        <th>公钥</th>
+                        <th>clientId</th>
+                        <th>clientSecret</th>
+                        <th>ssoPassword</th>
+                        <th>回调地址</th>
+                        <th>编辑</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="tc : ${thirdClientsList}">
+                        <td th:if="${tc.description != 'xxx'}" th:text="${tc.description}"></td>
+                        <td th:if="${tc.description == 'xxx'}"></td>
+
+                        <td th:if="${tc.contactorName != 'xxx'}" th:text="${tc.contactorName}"></td>
+                        <td th:if="${tc.contactorName == 'xxx'}"></td>
+
+                        <td th:if="${tc.contactorPhone != 'xxx'}" th:text="${tc.contactorPhone}"></td>
+                        <td th:if="${tc.contactorPhone == 'xxx'}"></td>
+
+                        <td th:text="${tc.publicKey}"></td>
+                        <td th:text="${tc.clientId}"></td>
+                        <td th:text="${tc.clientSecret}"></td>
+                        <td th:text="${tc.ssoPassword}"></td>
+                        <td th:text="${tc.callbackUrl}"></td>
+                        <td><a href="javascript:void(0);" class="modify_info">修改</a> | <a href="javascript:void(0);" class="del_record">删除</a></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tab_foot">
+                <ul class="handle">
+                    <li>新增</li>
+                </ul>
+                <div class="pages">
+                    <div class="jil">共<font th:text="${total}"></font>条记录</div>
+                    <a th:href="@{'/page/sso/platformList/1,' + ${pageSize} + ',' + ${description} +'.html'}" class="page">首页</a>
+                    <a th:if="${hasPrevioisPage == true}"
+                       th:href="@{'/page/sso/platformList/' + ${prePage} + ',' + ${pageSize} + ',' + ${description} + '.html'}" class="page">上一页</a>
+
+                    <a th:each="pageN : ${navigatepageNums}"
+                       th:href="@{'/page/sso/platformList/' + ${pageN} + ',' + ${pageSize} + ',' + ${description} + '.html'}" th:text="${pageN}" class="page"></a>
+
+                    <a th:if="${hastNextPage == true}"
+                       th:href="@{'/page/sso/platformList/' + ${nextPage} + ',' + ${pageSize} + ',' + ${description} + '.html'}" class="page">下一页</a>
+
+                    <a th:href="@{'/page/sso/platformList/' + ${pages} + ',' + ${pageSize} + ',' + ${description}+ '.html'}" class="page">尾页</a>
+                </div>
+            </div>
+
+            <script text="text/javascript" th:src="@{/static/scripts/backstage/platform.js}" src="/static/scripts/backstage/platform.js"></script>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hsjc.ssoCenter.core.mapper.ResourceMapper" >
+  <resultMap id="BaseResultMap" type="com.hsjc.ssoCenter.core.domain.Resource" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="resKey" property="resKey" jdbcType="VARCHAR" />
+    <result column="resName" property="resName" jdbcType="VARCHAR" />
+    <result column="resPath" property="resPath" jdbcType="VARCHAR" />
+    <result column="parentId" property="parentId" jdbcType="BIGINT" />
+    <result column="resType" property="resType" jdbcType="CHAR" />
+    <result column="resUrl" property="resUrl" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="CHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="className" property="className" jdbcType="VARCHAR" />
+    <result column="idName" property="idName" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="CHAR" />
+    <result column="clientId" property="clientId" jdbcType="VARCHAR" />
+    <result column="ssoPassword" property="ssoPassword" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, resKey, resName, resPath, parentId, resType, resUrl, state, description, createDate, 
+    className, idName, level, clientId,ssoPassword
+  </sql>
+
+  <insert id="insert" parameterType="Resource">
+    insert into tbresource
+      (resKey,
+      resName,
+      resPath,
+      parentId,
+      resType,
+      resUrl,
+      state,
+      description,
+      createDate,
+      className,
+      idName,
+      level,
+      clientId,
+      ssoPassword)
+    values (
+      #{resKey}, 
+      #{resName}, 
+      #{resPath}, 
+      #{parentId}, 
+      #{resType}, 
+      #{resUrl}, 
+      #{state}, 
+      #{description}, 
+      #{createDate},
+      #{className},
+      #{idName},
+      #{level},
+      #{clientId},
+      #{ssoPassword})
+  </insert>
+
+  <insert id="insertSelective" parameterType="Resource">
+    insert into tbresource
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="resKey != null" >
+        resKey,
+      </if>
+      <if test="resName != null" >
+        resName,
+      </if>
+      <if test="resPath != null" >
+        resPath,
+      </if>
+      <if test="parentId != null" >
+        parentId,
+      </if>
+      <if test="resType != null" >
+        resType,
+      </if>
+      <if test="resUrl != null" >
+        resUrl,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="createDate != null" >
+        createDate,
+      </if>
+      <if test="className != null" >
+        className,
+      </if>
+      <if test="idName != null" >
+        idName,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="clientId != null" >
+        clientId,
+      </if>
+      <if test="ssoPassword != null" >
+        ssoPassword,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="resKey != null" >
+        #{resKey},
+      </if>
+      <if test="resName != null" >
+        #{resName},
+      </if>
+      <if test="resPath != null" >
+        #{resPath},
+      </if>
+      <if test="parentId != null" >
+        #{parentId},
+      </if>
+      <if test="resType != null" >
+        #{resType},
+      </if>
+      <if test="resUrl != null" >
+        #{resUrl},
+      </if>
+      <if test="state != null" >
+        #{state},
+      </if>
+      <if test="description != null" >
+        #{description},
+      </if>
+      <if test="createDate != null" >
+        #{createDate},
+      </if>
+      <if test="className != null" >
+        #{className},
+      </if>
+      <if test="idName != null" >
+        #{idName},
+      </if>
+      <if test="level != null" >
+        #{level},
+      </if>
+      <if test="clientId != null" >
+        #{clientId},
+      </if>
+      <if test="ssoPassword != null" >
+        #{ssoPassword},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbresource
+    where id = #{id}
+  </delete>
+
+  <update id="updateByPrimaryKeySelective" parameterType="Resource">
+    update tbresource
+    <set>
+      <if test="resKey != null" >
+        resKey = #{resKey},
+      </if>
+      <if test="resName != null" >
+        resName = #{resName},
+      </if>
+      <if test="resPath != null" >
+        resPath = #{resPath},
+      </if>
+      <if test="parentId != null" >
+        parentId = #{parentId},
+      </if>
+      <if test="resType != null" >
+        resType = #{resType},
+      </if>
+      <if test="resUrl != null" >
+        resUrl = #{resUrl},
+      </if>
+      <if test="state != null" >
+        state = #{state},
+      </if>
+      <if test="description != null" >
+        description = #{description},
+      </if>
+      <if test="createDate != null" >
+        createDate = #{createDate},
+      </if>
+      <if test="className != null" >
+        className = #{className},
+      </if>
+      <if test="idName != null" >
+        idName = #{idName},
+      </if>
+      <if test="level != null" >
+        level = #{level},
+      </if>
+      <if test="clientId != null" >
+        clientId = #{clientId},
+      </if>
+      <if test="ssoPassword != null" >
+        ssoPassword = #{ssoPassword},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="Resource">
+    update tbresource
+    set resKey = #{resKey},
+      resName = #{resName},
+      resPath = #{resPath},
+      parentId = #{parentId},
+      resType = #{resType},
+      resUrl = #{resUrl},
+      state = #{state},
+      description = #{description},
+      createDate = #{createDate},
+      className = #{className},
+      idName = #{idName},
+      level = #{level},
+      clientId = #{clientId},
+      ssoPassword = #{ssoPassword}
+    where id = #{id}
+  </update>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbresource
+    where id = #{id}
+  </select>
+
+  <!--
+    @author : zga
+    @date : 2016-3-18
+    根据userId查询资源列表
+  -->
+  <select id="selectResourcesByRoleId" resultType="java.util.HashMap">
+    SELECT DISTINCT
+    tr.id,
+    tr.resKey,
+    tr.resName,
+    tr.resPath,
+    tr.parentId,
+    tr.resType,
+    tr.resUrl,
+    tr.state,
+    tr.description,
+    tr.createDate,
+    (CASE
+    WHEN tr.className IS NULL THEN 'xxx'
+    ELSE tr.className
+    END ) AS className,
+    (CASE
+    WHEN tr.idName IS NULL THEN 'xxx'
+    ELSE tr.idName
+    END ) AS idName,
+    tr.level,
+    (CASE
+    WHEN tr.clientId IS NULL THEN 'xxx'
+    ELSE tr.clientId
+    END ) AS clientId,
+    (CASE
+    WHEN tr.ssoPassword IS NULL THEN 'xxx'
+    ELSE tr.ssoPassword
+    END ) AS ssoPassword
+    FROM
+    tbresource tr,
+    tbroleresource trr,
+    tbuserrole tur
+    <where>
+      tr.id = trr.resourceId
+      AND trr.roleId = tur.roleId
+      <if test="userId != null">
+        AND tur.userId = #{userId}
+      </if>
+    </where>
+  </select>
+
+  <!--
+    @author : zga
+    @date : 2016-3-18
+    根据userId查询资源列表(这个是针对普通用户的查询,管理员并不需要)
+  -->
+  <select id="selectResourcesByUserId" resultType="java.util.HashMap">
+    SELECT DISTINCT
+    tr.id,
+    tr.resKey,
+    tr.resName,
+    tr.resPath,
+    tr.parentId,
+    tr.resType,
+    tr.resUrl,
+    tr.state,
+    tr.description,
+    tr.createDate,
+    (CASE
+    WHEN tr.className IS NULL THEN 'xxx'
+    ELSE tr.className
+    END ) AS className,
+    (CASE
+    WHEN tr.idName IS NULL THEN 'xxx'
+    ELSE tr.idName
+    END ) AS idName,
+    tr.level,
+    (CASE
+    WHEN tr.clientId IS NULL THEN 'xxx'
+    ELSE tr.clientId
+    END ) AS clientId,
+    (CASE
+    WHEN tr.ssoPassword IS NULL THEN 'xxx'
+    ELSE tr.ssoPassword
+    END ) AS ssoPassword
+    FROM
+      tbresource tr,
+      tbuserresource ture
+     <where>
+       tr.id = ture.resourceId
+      <if test="userId != null">
+        AND ture.userId = #{userId}
+      </if>
+     </where>
+  </select>
+
+  <!--
+    @author : zga
+    @date : 2016-3-21
+    根据相应的参数查询资源
+  -->
+  <select id="selectResourceByParam" resultType="java.util.HashMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM tbresource
+    <where>
+      <if test="resKey != null" >
+        resKey = #{resKey}
+      </if>
+      <if test="resName != null" >
+        AND resName = #{resName}
+      </if>
+      <if test="resPath != null" >
+        AND resPath = #{resPath}
+      </if>
+      <if test="parentId != null" >
+        AND parentId = #{parentId}
+      </if>
+      <if test="resType != null" >
+        AND resType = #{resType}
+      </if>
+      <if test="resUrl != null" >
+        AND resUrl = #{resUrl}
+      </if>
+      <if test="state != null" >
+        AND state = #{state}
+      </if>
+      <if test="description != null" >
+        AND description = #{description}
+      </if>
+      <if test="createDate != null" >
+        AND createDate = #{createDate}
+      </if>
+      <if test="className != null" >
+        AND className = #{className}
+      </if>
+      <if test="idName != null" >
+        AND idName = #{idName}
+      </if>
+      <if test="level != null" >
+        AND level = #{level}
+      </if>
+      <if test="clientId != null" >
+        AND clientId = #{clientId}
+      </if>
+      <if test="ssoPassword != null" >
+        AND ssoPassword = #{ssoPassword}
+      </if>
+    </where>
+  </select>
+</mapper>

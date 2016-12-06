@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hsjc.ssoCenter.core.mapper.EmailActivateMapper">
+  <resultMap id="BaseResultMap" type="com.hsjc.ssoCenter.core.domain.EmailActivate">
+    <id column="activateId" jdbcType="INTEGER" property="activateId" />
+    <result column="userId" jdbcType="BIGINT" property="userId" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="activeTime" jdbcType="TIMESTAMP" property="activeTime" />
+    <result column="activateKey" jdbcType="VARCHAR" property="activateKey" />
+    <result column="state" jdbcType="CHAR" property="state" />
+    <result column="validSeconds" jdbcType="INTEGER" property="validSeconds" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    activateId, userId, createTime, activeTime, activateKey, state, validSeconds
+  </sql>
+
+  <!--
+    @author : zga
+    @date : 2015-12-04
+    新增邮件激活
+  -->
+  <insert id="insert" parameterType="com.hsjc.ssoCenter.core.domain.EmailActivate">
+    insert into tbemailactivate (activateId, userId, createTime,
+      activeTime, activateKey, state, 
+      validSeconds)
+    values (#{activateId}, #{userId}, #{createTime}, 
+      #{activeTime}, #{activateKey}, #{state}, 
+      #{validSeconds})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.hsjc.ssoCenter.core.domain.EmailActivate">
+    insert into tbemailactivate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="activateId != null">
+        activateId,
+      </if>
+      <if test="userId != null">
+        userId,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="activeTime != null">
+        activeTime,
+      </if>
+      <if test="activateKey != null">
+        activateKey,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="validSeconds != null">
+        validSeconds,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="activateId != null">
+        #{activateId},
+      </if>
+      <if test="userId != null">
+        #{userId},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="activeTime != null">
+        #{activeTime},
+      </if>
+      <if test="activateKey != null">
+        #{activateKey},
+      </if>
+      <if test="state != null">
+        #{state},
+      </if>
+      <if test="validSeconds != null">
+        #{validSeconds},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbemailactivate
+    where activateId = #{activateId}
+  </delete>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.hsjc.ssoCenter.core.domain.EmailActivate">
+    update tbemailactivate
+    <set>
+      <if test="userId != null">
+        userId = #{userId},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime},
+      </if>
+      <if test="activeTime != null">
+        activeTime = #{activeTime},
+      </if>
+      <if test="activateKey != null">
+        activateKey = #{activateKey},
+      </if>
+      <if test="state != null">
+        state = #{state},
+      </if>
+      <if test="validSeconds != null">
+        validSeconds = #{validSeconds},
+      </if>
+    </set>
+    where activateId = #{activateId}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.hsjc.ssoCenter.core.domain.EmailActivate">
+    update tbemailactivate
+    set userId = #{userId},
+      createTime = #{createTime},
+      activeTime = #{activeTime},
+      activateKey = #{activateKey},
+      state = #{state},
+      validSeconds = #{validSeconds}
+    where activateId = #{activateId}
+  </update>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbemailactivate
+    where activateId = #{activateId}
+  </select>
+</mapper>

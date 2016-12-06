@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="../../public/backstage">
+    <head>
+
+    </head>
+    <body>
+
+
+                <div id="content1" layout:fragment="content">
+                    <div class="index_title">新增组织机构</div>
+                    <div class="create_tissue_box">
+                        <div class="examine_box_aside">
+                            <div class="examine_title">生成新的组织机构</div>
+                        </div>
+                        <div class="examine_box_text2">
+                            <ul class="tissue_box_text">
+                                <li>所属区域：上海—上海—普陀区</li>
+                                <li>组织机构名称：华侨中学</li>
+                                <li>组织机构介绍：华侨中学占地面积15050平方米，有34个教学班，有教职工200余人，专任教师180余人 。</li>
+                                <li>管理员：admin111</li>
+                                <li>初始密码：111111</li>
+                            </ul>
+                        </div>
+                        <div class="examine_box_aside">
+                            <ul class="examine_lead">
+                                <li class="left selected">
+                                    <a href="tissueList.html" class="selected">完成</a>
+                                </li>
+                                <li class="right selected">
+                                    <a href="newTissue.html" class="selected">继续添加</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        $(function(){
+                            $('#new_tissue').addClass('selected');
+                        })
+
+
+                    </script>
+        </div>
+
+
+    </body>
+</html>

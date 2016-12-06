@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="../../public/backstage">
+    <head></head>
+    <body>
+        <div id="content" layout:fragment="content">
+            <div class="index_title">二次客服管理</div>
+
+            <div class="tab_search">
+                <div class="tab_fn">
+                    <input type="button" value="查询" class="tab_fnLi"/>
+                    <input type="reset" value="重置" class="tab_fnLi"/>
+                </div>
+                <input type="search" placeholder="输入关键字…"/>
+            </div>
+
+            <table class="service_tab">
+                <thead>
+                    <tr>
+                        <th>二次会话ID</th>
+                        <th>所属客服员ID</th>
+                        <th>问题内容</th>
+                        <th>处理记录</th>
+                        <th>问题状态</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <input type="checkbox" />
+                            1
+                        </td>
+                        <td>1001</td>
+                        <td>首页banner无法正常显示</td>
+                        <td></td>
+                        <td>进行中</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="checkbox" />
+                             2
+                        </td>
+                        <td>1002</td>
+                        <td>首页banner无法正常显示</td>
+                        <td>已修复bug</td>
+                        <td>结束</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="checkbox" />
+                            3
+                        </td>
+                        <td>1003</td>
+                        <td>首页banner无法正常显示</td>
+                        <td>已修复bug</td>
+                        <td>结束</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="checkbox" />
+                            4
+                        </td>
+                        <td>1003</td>
+                        <td>首页banner无法正常显示</td>
+                        <td>已修复bug</td>
+                        <td>结束</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tab_foot">
+                <div class="all_select"><input type="checkbox" class="checkAll" />全选</div>
+                <ul class="handle">
+                    <li>
+                        <a href="dispose.html">编辑处理记录</a>
+                    </li>
+                    <li>修改问题状态</li>
+                </ul>
+                <div class="pages">
+                    <div class="jil">共58999条记录</div>
+                    <a href="#" class="page">首页</a>
+                    <a href="#" class="page">上一页</a>
+                    <a href="#" class="page">下一页</a>
+                    <a href="#" class="page">尾页</a>
+                    <select>
+                        <option>1/20</option>
+                        <option>2/20</option>
+                        <option>3/20</option>
+                        <option>4/20</option>
+                        <option>5/20</option>
+                    </select>
+                </div>
+            </div>
+
+            <script type="text/javascript" th:src="@{/static/scripts/backstage/twoManage.js}" src="/static/scripts/backstage/twoManage.js"></script>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hsjc.ssoCenter.core.mapper.RestactiontypeMapper" >
+  <resultMap id="BaseResultMap" type="com.hsjc.ssoCenter.core.domain.Restactiontype" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="actionId" property="actionId" jdbcType="INTEGER" />
+    <result column="actionName" property="actionName" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, actionId, actionName, description
+  </sql>
+
+  <!--
+   @author : zga
+   @date : 2015-12-04
+   新增
+  -->
+  <insert id="insert" parameterType="com.hsjc.ssoCenter.core.domain.Restactiontype" >
+    insert into tbrestactiontype (id, actionId, actionName, 
+      description)
+    values (#{id}, #{actionId}, #{actionName}, 
+      #{description})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hsjc.ssoCenter.core.domain.Restactiontype" >
+    insert into tbrestactiontype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="actionId != null" >
+        actionId,
+      </if>
+      <if test="actionName != null" >
+        actionName,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="actionId != null" >
+        #{actionId},
+      </if>
+      <if test="actionName != null" >
+        #{actionName},
+      </if>
+      <if test="description != null" >
+        #{description},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbrestactiontype
+    where id = #{id}
+  </delete>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.hsjc.ssoCenter.core.domain.Restactiontype" >
+    update tbrestactiontype
+    <set >
+      <if test="actionId != null" >
+        actionId = #{actionId},
+      </if>
+      <if test="actionName != null" >
+        actionName = #{actionName},
+      </if>
+      <if test="description != null" >
+        description = #{description},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.hsjc.ssoCenter.core.domain.Restactiontype" >
+    update tbrestactiontype
+    set actionId = #{actionId},
+      actionName = #{actionName},
+      description = #{description}
+    where id = #{id}
+  </update>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from tbrestactiontype
+    where id = #{id}
+  </select>
+</mapper>

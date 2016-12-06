@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="../../public/backstage">
+    <head></head>
+    <body>
+        <div id="content" layout:fragment="content">
+            <div class="index_title">新增管理员</div>
+
+            <div class="admin_box">
+                <div class="tissue_message" style="margin-top:20px;">
+                    <div class="tissue_message">
+                        <div class="tissue_box_l">*</div>
+                        <div class="tissue_box_name">管理员用户名：</div>
+                        <input name="userName" type="text"/>
+                    </div>
+
+                    <div class="tissue_message">
+                        <div class="tissue_box_l">*</div>
+                        <div class="tissue_box_name">真实姓名：</div>
+                        <input name="realName" type="text"/>
+                    </div>
+                    <div class="tissue_message">
+                        <div class="tissue_box_l">*</div>
+                        <div class="tissue_box_name">性别：</div>
+                        <ul class="user_status">
+                            <li><input type="radio" name="gender" value="1" checked="checked"/>男</li>
+                            <li><input type="radio" name="gender" value="0"/>女</li>
+                        </ul>
+                    </div>
+                   <div class="tissue_message">
+                        <div class="tissue_box_l">*</div>
+                        <div class="tissue_box_name">登录密码：</div>
+                        <input name="password" type="password"/>
+                    </div>
+                    <div class="tissue_message">
+                        <div class="tissue_box_l">*</div>
+                        <div class="tissue_box_name">角色：</div>
+                        <div class="unnamed" style="margin-left:20px;">
+                           <select name="roleId">
+                               <option value="2">普通管理员</option>
+                               <option value="3">超级管理员</option>
+                           </select>
+                        </div>
+                    </div>
+                    <ul class="build_submit">
+                        <li class="selected">保存</li>
+                        <li class="cancel">取消</li>
+                    </ul>
+                </div>
+            <script type="text/javascript" th:src="@{/static/scripts/backstage/newAdmin.js}" src="/static/scripts/backstage/newAdmin.js"></script>
+            </div>
+        </div>
+    </body>
+</html>

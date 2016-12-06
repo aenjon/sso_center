@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	  layout:decorator="../../public/register">
+	<head></head>
+	<body>
+		<div class="container-fluid" layout:fragment="content">
+			<figure class="figure">
+				<a class="student" href="/page/register/2.html?type=student">我是学生</a>
+				<a class="teacher" href="/page/register/2.html?type=teacher">我是老师</a>
+			</figure>
+
+			<script type="text/javascript" th:src="@{/static/scripts/register/register1.js}" src="/static/scripts/register/register1.js"></script>
+		</div>
+	</body>
+</html>
+

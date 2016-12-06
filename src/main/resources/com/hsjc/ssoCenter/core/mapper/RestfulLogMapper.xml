@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hsjc.ssoCenter.core.mapper.RestfulLogMapper" >
+  <resultMap id="BaseResultMap" type="com.hsjc.ssoCenter.core.domain.RestfulLog" >
+    <id column="restLogId" property="restLogId" jdbcType="BIGINT" />
+    <result column="clientId" property="clientId" jdbcType="VARCHAR" />
+    <result column="actionId" property="actionId" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="actionTime" property="actionTime" jdbcType="TIMESTAMP" />
+    <result column="synCount" property="synCount" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    restLogId, clientId, actionId,  description, actionTime,synCount
+  </sql>
+
+  <!--
+   @author : zga
+   @date : 2015-12-04
+   新增
+  -->
+  <insert id="insert" useGeneratedKeys="true" keyProperty="restLogId" parameterType="java.util.HashMap">
+    insert into tbrestfullog
+    (clientId, actionId,description,actionTime,synCount)
+    values (
+      #{clientId},
+      #{actionId},
+      #{description},
+      #{actionTime},
+      #{synCount}
+    )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.hsjc.ssoCenter.core.domain.RestfulLog" >
+    insert into tbrestfullog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="restLogId != null" >
+        restLogId,
+      </if>
+      <if test="clientId != null" >
+        clientId,
+      </if>
+      <if test="actionId != null" >
+        actionId,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="restLogId != null" >
+        #{restLogId},
+      </if>
+      <if test="clientId != null" >
+        #{clientId},
+      </if>
+      <if test="actionId != null" >
+        #{actionId},
+      </if>
+      <if test="description != null" >
+        #{description},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbrestfullog
+    where restLogId = #{restLogId}
+  </delete>
+
+  <update id="updateByPrimaryKeySelective" parameterType="RestfulLog" >
+    update tbrestfullog
+    <set >
+      <if test="clientId != null" >
+        clientId = #{clientId},
+      </if>
+      <if test="actionId != null" >
+        actionId = #{actionId},
+      </if>
+      <if test="description != null" >
+        description = #{description},
+      </if>
+    </set>
+    where restLogId = #{restLogId}
+  </update>
+
+  <!--
+    @author : zga
+    @date : 2016-3-29
+    更新同步数量
+  -->
+  <update id="updateSynCountByLogId" parameterType="RestfulLog">
+    UPDATE tbrestfullog
+    SET synCount = #{synCount}
+    WHERE restLogId = #{restLogId}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="RestfulLog" >
+    update tbrestfullog
+    set clientId = #{clientId},
+      actionId = #{actionId},
+      description = #{description},
+    where restLogId = #{restLogId}
+  </update>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from tbrestfullog
+    where restLogId = #{restLogId}
+  </select>
+
+  <!--
+    @author:wuyue
+    @data:2016-3-30
+    @目的：查询站点日志相关内容
+  -->
+  <select id="findSiteLog" resultType="java.util.HashMap">
+    SELECT
+    trl.restLogId,
+    (CASE
+    WHEN t3c.description IS NULL THEN 'xxx'
+    ELSE t3c.description
+    END ) AS c_description,
+    (CASE
+    WHEN trl.description IS NULL THEN 'xxx'
+    ELSE trl.description
+    END ) AS l_description,
+    (CASE
+    WHEN trl.synCount IS NULL THEN 'xxx'
+    ELSE trl.synCount
+    END ) AS synCount
+    FROM
+    tbrestfullog trl,
+    tb3rdclients t3c
+    <where>
+      trl.clientId = t3c.clientId
+      <if test="c_description != null">
+        AND t3c.description like CONCAT('%','${c_description}','%')
+      </if>
+    </where>
+  </select>
+</mapper>

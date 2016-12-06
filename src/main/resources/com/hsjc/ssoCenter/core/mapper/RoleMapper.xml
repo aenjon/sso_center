@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hsjc.ssoCenter.core.mapper.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.hsjc.ssoCenter.core.domain.Role" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="roleKey" property="roleKey" jdbcType="VARCHAR" />
+    <result column="roleName" property="roleName" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="CHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, roleKey, roleName, state, description
+  </sql>
+
+  <insert id="insert" parameterType="Role">
+    insert into tbrole 
+    (roleKey, 
+    roleName,
+    state, 
+    description)
+    values (
+    #{roleKey}, 
+    #{roleName},
+    #{state},
+    #{description})
+  </insert>
+
+  <insert id="insertSelective" parameterType="Role">
+    insert into tbrole
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="roleKey != null" >
+        roleKey,
+      </if>
+      <if test="roleName != null" >
+        roleName,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="roleKey != null" >
+        #{roleKey},
+      </if>
+      <if test="roleName != null" >
+        #{roleName},
+      </if>
+      <if test="state != null" >
+        #{state},
+      </if>
+      <if test="description != null" >
+        #{description},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteByPrimaryKey">
+    delete from tbrole
+    where id = #{id}
+  </delete>
+
+  <update id="updateByPrimaryKeySelective" parameterType="Role">
+    update tbrole
+    <set >
+      <if test="roleKey != null" >
+        roleKey = #{roleKey},
+      </if>
+      <if test="roleName != null" >
+        roleName = #{roleName},
+      </if>
+      <if test="state != null" >
+        state = #{state},
+      </if>
+      <if test="description != null" >
+        description = #{description},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="Role">
+    update tbrole
+    set roleKey = #{roleKey},
+      roleName = #{roleName},
+      state = #{state},
+      description = #{description}
+    where id = #{id}
+  </update>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbrole
+    where id = #{id}
+  </select>
+
+  <!--
+    @author : zga
+    @date : 2016-3-18
+    根据userId查询角色
+  -->
+  <select id="selectRoleByUserId" resultType="Role">
+    SELECT DISTINCT tr.* FROM
+    tbrole tr,
+    tbuserrole tur
+    <where>
+      tr.id = tur.roleId
+      <if test="userId != null">
+        AND tur.userId = #{userId}
+      </if>
+    </where>
+  </select>
+</mapper>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hsjc.ssoCenter.core.mapper.SmsBindPhoneNumMapper">
+  <resultMap id="BaseResultMap" type="com.hsjc.ssoCenter.core.domain.SmsBindPhoneNum">
+    <id column="bindId" jdbcType="INTEGER" property="bindId" />
+    <result column="authId" jdbcType="INTEGER" property="authId" />
+    <result column="userId" jdbcType="BIGINT" property="userId" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    bindId, authId, userId
+  </sql>
+
+  <!--
+   @author : zga
+   @date : 2015-12-04
+   新增
+  -->
+  <insert id="insert" parameterType="com.hsjc.ssoCenter.core.domain.SmsBindPhoneNum">
+    insert into tbsmsbindphonenum (bindId, authId, userId
+      )
+    values (#{bindId}, #{authId}, #{userId}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.hsjc.ssoCenter.core.domain.SmsBindPhoneNum">
+    insert into tbsmsbindphonenum
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bindId != null">
+        bindId,
+      </if>
+      <if test="authId != null">
+        authId,
+      </if>
+      <if test="userId != null">
+        userId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bindId != null">
+        #{bindId},
+      </if>
+      <if test="authId != null">
+        #{authId},
+      </if>
+      <if test="userId != null">
+        #{userId},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbsmsbindphonenum
+    where bindId = #{bindId}
+  </delete>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.hsjc.ssoCenter.core.domain.SmsBindPhoneNum">
+    update tbsmsbindphonenum
+    <set>
+      <if test="authId != null">
+        authId = #{authId},
+      </if>
+      <if test="userId != null">
+        userId = #{userId},
+      </if>
+    </set>
+    where bindId = #{bindId}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.hsjc.ssoCenter.core.domain.SmsBindPhoneNum">
+    update tbsmsbindphonenum
+    set authId = #{authId},
+      userId = #{userId}
+    where bindId = #{bindId}
+  </update>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbsmsbindphonenum
+    where bindId = #{bindId}
+  </select>
+</mapper>

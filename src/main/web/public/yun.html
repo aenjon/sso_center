@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link th:href="@{/static/css/sso.css}" href="../static/css/sso.css" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/static/css/bootstrap.css}" href="../static/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/static/css/validform.css}" href="../static/css/validform.css" rel="stylesheet" type="text/css"/>
+        <script text="text/javascript" th:src="@{/static/scripts/jquery/jquery-1.11.3.min.js}" src="../static/scripts/jquery/jquery-1.11.3.min.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/ie/html5shiv.js}" src="../static/scripts/ie/html5shiv.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/validform/Validform_v5.3.2_min.js}" src="../static/scripts/validform/Validform_v5.3.2_min.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/ie/placeholder.js}"  src="../static/scripts/ie/placeholder.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/sso.js}" src="../static/scripts/sso.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/artDialog-master/dist/dialog-min.js}" src="../static/scripts/artDialog-master/dist/dialog-min.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/util/SSOUtil.js}" src="../static/scripts/util/SSOUtil.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/constant/constant.js}" src="../static/scripts/constant/constant.js"></script>
+    </head>
+    <body>
+        <header class="header">
+            <div class="center">
+                <div class="label-info">华师智慧教育云平台</div>
+                <input type="button"  class="exit" onclick="SSOSystem.exit()" value="退出"/>
+                <div class="people">
+                    <img th:if="${session.user.gender == 0}" src="../../../static/images/yun/people.png"/>
+                    <img th:if="${session.user.gender == 1}" src="../../../static/images/yun/boy.jpg"/>
+                    <span th:text="${session.user.realName}"></span>
+                </div>
+            </div>
+        </header>
+        <div class="container" layout:fragment="service">
+            <div class="container_title">
+                <div class="center">您的位置： 首页 》<span>个人设置</span></div>
+            </div>
+            <div class="datum">
+                <ul class="datum_l">
+                    <li id="basic_message">
+                        <a href="/sso/personalSettings.html">基本信息</a>
+                    </li>
+                    <li id="mailbox" th:if="${session.user.email} == null or ${session.user.email} == ''">
+                        <a href="/sso/bindEmail.html">绑定邮箱</a>
+                    </li>
+                   <li id="phone" th:if="${session.user.phone} == null or ${session.user.phone} == ''">
+                        <a href="/sso/bindPhone.html">绑定手机</a>
+                    </li>
+                  <li id="bindInviteCode" th:if="${session.user.inviteCode} == null or ${session.user.inviteCode} == ''">
+                        <a href="/sso/bindInviteCode.html">邀请码</a>
+                    </li>
+                    <li id="amend_password">
+                        <a href="/sso/modifyPassword.html">修改密码</a>
+                    </li>
+                    <li id="news">
+                        <a href="javascript:">消息提醒</a>
+                    </li>
+                </ul>
+                <div class="datum_r" >
+                    <div id="content1" layout:fragment="content"></div>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="center">
+                <div class="foot-size">客服电话：400-880-5056        客服邮箱：Help@hsjc.com.cn</div>
+                <div class="foot-size">共筑教育云平台 ,创建教育新模式</div>
+                <div class="foot-size">Copyright ©华师京城网络科技股份有限公司  沪IC备10208270号-3</div>
+                <div class="android">
+                    <img src="../../../static/images/yun/android.png"/>
+                    <span>For  Android</span>
+                </div>
+                <div class="ios">
+                    <img src="../../../static/images/yun/ios.png"/>
+                    <span>For  IOS</span>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

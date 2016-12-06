@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hsjc.ssoCenter.core.mapper.ThirdFilterMapper" >
+  <resultMap id="BaseResultMap" type="com.hsjc.ssoCenter.core.domain.ThirdFilter" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="trdClientId" property="trdClientId" jdbcType="VARCHAR" />
+    <result column="organizationCode" property="organizationCode" jdbcType="INTEGER" />
+    <result column="tstudent" property="tstudent" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, trdClientId, organizationCode, tstudent,createTime
+  </sql>
+
+  <insert id="insert" parameterType="ThirdFilter">
+    insert into tb3rdfilter
+    (trdClientId,
+    organizationCode,
+    tstudent)
+    SELECT
+    #{trdClientId},
+    #{organizationCode},
+    #{tstudent}
+    FROM DUAL
+    WHERE NOT EXISTS (
+       SELECT
+       trdClientId,
+       organizationCode,
+       tstudent FROM
+       tb3rdfilter
+      WHERE trdClientId = #{trdClientId}
+      AND organizationCode = #{organizationCode}
+      AND tstudent = #{tstudent}
+    )
+  </insert>
+
+  <insert id="insertSelective" parameterType="ThirdFilter" >
+    insert into tb3rdfilter
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="trdClientId != null" >
+        trdClientId,
+      </if>
+      <if test="organizationCode != null" >
+        organizationCode,
+      </if>
+      <if test="tstudent != null" >
+        tstudent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="trdClientId != null" >
+        #{trdClientId},
+      </if>
+      <if test="organizationCode != null" >
+        #{organizationCode},
+      </if>
+      <if test="tstudent != null" >
+        #{tstudent},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb3rdfilter
+    where id = #{id}
+  </delete>
+
+  <update id="updateByPrimaryKeySelective" parameterType="ThirdFilter" >
+    update tb3rdfilter
+    <set >
+      <if test="trdClientId != null" >
+        trdClientId = #{trdClientId},
+      </if>
+      <if test="organizationCode != null" >
+        organizationCode = #{organizationCode},
+      </if>
+      <if test="tstudent != null" >
+        tstudent = #{tstudent},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="ThirdFilter" >
+    update tb3rdfilter
+    set trdClientId = #{trdClientId},
+      organizationCode = #{organizationCode},
+      tstudent = #{tstudent}
+    where id = #{id}
+  </update>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from tb3rdfilter
+    where id = #{id}
+  </select>
+
+  <!--
+    @author : zga
+    @date : 2016-1-20
+    根据clientId查询第三方过滤信息
+  -->
+  <select id="selectByClientId" resultType="ThirdFilter">
+    select
+    <include refid="Base_Column_List" />
+    from tb3rdfilter
+    where trdClientId = #{trdClientId}
+  </select>
+
+  <!--
+    @author : zga
+    @date : 2016-1-26
+    查询所有的第三方过滤规则列表
+  -->
+  <select id="selectAllThirdFilters" resultType="java.util.HashMap">
+    SELECT
+      tc.description,
+      tc.clientId,
+      torg.organizationCode,
+      torg.organizationName,
+      tf.id fid,
+      tf.createTime,
+      tf.tstudent
+    FROM
+    tb3rdfilter tf,
+    tb3rdclients tc,
+    tborganization torg
+    <where>
+      <if test="uname != null">
+        tf.organizationCode = torg.organizationCode
+        AND tf.trdClientId = tc.clientId
+      </if>
+
+      <if test="description != null">
+        AND tc.description like CONCAT('%','${description}','%')
+      </if>
+    </where>
+
+    ORDER BY tf.createTime DESC
+  </select>
+</mapper>

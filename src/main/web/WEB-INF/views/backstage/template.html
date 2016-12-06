@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="../../public/backstage">
+    <head></head>
+    <body>
+        <div id="content" layout:fragment="content">
+            <div class="index_title">新增用户</div>
+
+            <div class="users_div">
+                <ul class="users">
+                    <li>
+                        <a href="newUser.html">添加用户</a>
+                    </li>
+                    <li>
+                        <a href="templateTo.html" class="selected">批量导入用户</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="template_box">
+                <ul class="template_step">
+                    <li>请根据以下步骤进行批量导入：</li>
+                    <li>
+                        <div class="template_font">1、获取批量导入模版</div>
+                    </li>
+                    <li>2、按照要求填写模版模版中有 * 号的为必填项；将用户基本信息填写在工作表“sheet1”中，若有疑问可查看工作表“说明”和“例子”；</li>
+                    <li>
+                        <div class="template_font">3、上传填写完成的模版</div>
+                        <div class="template_browse">
+                            浏览
+                            <input type="file"/>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="template_font">4、检查内容是否符合规定</div>
+                        <div class="examine">检查</div>
+                    </li>
+                </ul>
+
+                <div class="examine_box" style="display:none;">
+                    <div class="examine_box_aside">
+                        <div class="examine_title">检查结果</div>
+                    </div>
+                    <div class="examine_box_text">
+                        <div class="examine_text">内容符合规定，可以导入</div>
+                    </div>
+                    <div class="examine_box_aside">
+                        <ul class="examine_lead">
+                            <li class="left selected">开始导入</li>
+                            <li class="right">取消</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="examine_box2">
+                    <div class="examine_box_aside">
+                        <div class="examine_title">正在导入</div>
+                    </div>
+                    <div class="examine_box_text">
+                        <div class="progress">
+                            <div class="progress_text">进度</div>
+                            <div class="progress1"></div>
+                            <div class="progress2"></div>
+                            <div class="progress_text text">40%</div>
+                        </div>
+                    </div>
+                    <div class="examine_box_aside">
+                        <div class="examine_lead2">取消</div>
+                    </div>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+                $(function(){
+                    $('#new_user').addClass('selected');
+
+                    $('.examine').click(function(){
+                        $('.examine_box').show();
+                    });
+
+                    $('.examine_lead li.right').click(function(){
+                        $('.examine_box').hide();
+                    });
+
+                    $('.examine_lead li.left').click(function(){
+                        $('.examine_box').hide();
+                        $('.examine_box2').show();
+                    });
+
+                    $('.examine_lead2').click(function(){
+                        $('.examine_box2').hide();
+                    });
+                })
+            </script>
+        </div>
+    </body>
+</html>

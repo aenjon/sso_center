@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+    <!-- !!!! Driver Class Path !!!! -->
+    <classPathEntry location="D:\software\repo\mysql\mysql-connector-java\5.1.6\mysql-connector-java-5.1.6.jar"/>
+
+    <context id="context" targetRuntime="MyBatis3">
+        <property name="javaFileEncoding" value="utf-8"/>
+
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+
+        <!-- !!!! Database Configurations !!!! -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/sso_center" userId="root" password="000000"/>
+        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.18.201:3323/sso_center" userId="root" password="123456"/>-->
+        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://10.16.1.127:3306/sso_center" userId="mmysql" password="m12345"/>-->
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- !!!! Model Configurations !!!! -->
+        <javaModelGenerator targetPackage="com.hsjc.ssoCenter.core.domain" targetProject="THIS_CONFIGURATION_IS_NOT_REQUIRED">
+            <property name="enableSubPackages" value="false"/>
+            <!--<property name="trimStrings" value="true"/>-->
+        </javaModelGenerator>
+
+        <!-- !!!! Mapper XML Configurations !!!! -->
+        <sqlMapGenerator targetPackage="com.hsjc.ssoCenter.core.mapper" targetProject="THIS_CONFIGURATION_IS_NOT_REQUIRED">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <!-- !!!! Mapper Interface Configurations !!!! -->
+        <javaClientGenerator targetPackage="com.hsjc.ssoCenter.core.mapper" targetProject="THIS_CONFIGURATION_IS_NOT_REQUIRED" type="XMLMAPPER">
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+
+        <!-- !!!! Table Configurations !!!! -->
+        <!--<table tableName="tb3rdclients" domainObjectName="ThirdClients" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+
+        <table tableName="tbemailactivate" domainObjectName="EmailActivate" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+
+        <table tableName="tbemailresetpwd" domainObjectName="EmailResetPwd" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+
+        <table tableName="tbemailsend" domainObjectName="EmailSend" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+
+        <table tableName="tborganization" domainObjectName="Organization" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+
+        <table tableName="tbrestactiontype" domainObjectName="Restactiontype" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+
+        <table tableName="tbrestfullog" domainObjectName="RestfulLog" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+
+        <table tableName="tbschoolinvite" domainObjectName="SchoolInvite" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+
+        <table tableName="tbsmsbindphonenum" domainObjectName="SmsBindPhoneNum" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+
+        <table tableName="tbsmsresetpasswd" domainObjectName="SmsResetPasswd" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+
+        <table tableName="tbsmssend" domainObjectName="SmsSend" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+
+        <table tableName="tbsystemlog" domainObjectName="SystemLog" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+
+        <table tableName="tbusermain" domainObjectName="UserMain" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+
+        <table tableName="tbuserstudent" domainObjectName="UserStudent" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+
+        <table tableName="tbuserteacher" domainObjectName="UserTeacher" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+
+        <table tableName="tbuserTemp" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+
+        <table tableName="tbindexicos" domainObjectName="IndexIcos" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+
+        <table tableName="tb3rdfilter" domainObjectName="ThirdFilter" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+
+        <table tableName="tbsmssend" domainObjectName="SmsSend" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+
+        <table tableName="tbsystemproperties" domainObjectName="SystemProperties" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+
+        <table tableName="tb3rdsynuserdetaillog" domainObjectName="ThirdSynUserDetailLog" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--enableUpdateByExample="false"/>
+
+        <table tableName="tbrole" domainObjectName="Role" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+
+        <table tableName="tbuserrole" domainObjectName="UserRole" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+
+        <table tableName="tbresource" domainObjectName="Resource" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+
+        <table tableName="tbroleresource" domainObjectName="RoleResource" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+
+        <table tableName="tbuserresource" domainObjectName="UserResource" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>-->
+        <table tableName="test" domainObjectName="Test" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+    </context>
+</generatorConfiguration>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hsjc.ssoCenter.core.mapper.TestMapper" >
+  <resultMap id="BaseResultMap" type="com.hsjc.ssoCenter.core.domain.Test" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="userName" property="userName" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, userName, password, address
+  </sql>
+
+  <insert id="insert" parameterType="Test">
+    insert into test (userName, password,
+      address)
+    values (#{userName}, #{password},
+      #{address})
+  </insert>
+
+  <insert id="insertSelective" parameterType="Test">
+    insert into test
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userName != null" >
+        userName,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="userName != null" >
+        #{userName},
+      </if>
+      <if test="password != null" >
+        #{password},
+      </if>
+      <if test="address != null" >
+        #{address},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from test
+    where id = #{id}
+  </delete>
+
+  <update id="updateByPrimaryKeySelective" parameterType="Test" >
+    update test
+    <set >
+      <if test="userName != null" >
+        userName = #{userName},
+      </if>
+      <if test="password != null" >
+        password = #{password},
+      </if>
+      <if test="address != null" >
+        address = #{address},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="Test">
+    update test
+    set userName = #{userName},
+      password = #{password},
+      address = #{address}
+    where id = #{id}
+  </update>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from test
+    where id = #{id}
+  </select>
+</mapper>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>AuthorizateFailed</title>
+</head>
+<body>
+    <span th:if="${reqParam == 'errorClientId' }">非授权的第三方,请联系管理员.</span>
+    <span th:if="${reqParam == 'errorPassword' }">Password错误,请检查.</span>
+    <span th:if="${reqParam == 'errorOpenId' }">openId不存在.</span>
+    <span th:if="${reqParam == 'errorAccount' }">无权限访问.</span>
+</body>
+</html>

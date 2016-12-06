@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="../../public/backstage">
+    <head></head>
+    <body>
+        <div id="content" layout:fragment="content">
+            <div class="index_title">管理员列表</div>
+
+            <div class="tab_search">
+                <div class="tab_fn">
+                    <input type="button" value="查询" class="tab_fnLi"/>
+                </div>
+                <input type="search" name="userName" th:if="${userName=='0'}" placeholder="输入用户名…"/>
+                <input type="search" name="userName" th:unless="${userName=='0'}" th:value="${userName}" placeholder="输入用户名…"/>
+
+            </div>
+
+            <table class="admin_tab">
+                <thead>
+                    <tr>
+                        <th>管理员</th>
+                        <th>所属组织机构</th>
+                        <th>拥有权限</th>
+                        <th>添加时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr th:each="admin : ${adminList}">
+                    <input type="hidden" name="id" th:value="${admin.id}"/>
+                    <td th:text="${admin.userName}"></td>
+
+                    <td th:if="${admin.organizationName != 'xxx'}" th:text="${admin.organizationName}"></td>
+                    <td th:if="${admin.organizationName == 'xxx'}" th:text=""></td>
+
+                    <td th:if="${admin.resName!='xxx'}" th:text="${admin.resName}"></td>
+                    <td th:if="${admin.resName =='xxx'}" th:text=""></td>
+
+                    <td th:text="${admin.createTime}"></td>
+
+                 </tr>
+                </tbody>
+            </table>
+
+            <div class="tab_foot">
+                <div class="pages">
+                    <div class="jil">共<font th:text="${total}"></font>条记录</div>
+                    <a th:href="@{'/page/sso/adminList/1,' + ${pageSize}+','+ ${userName}+'.html'}" class="page">首页</a>
+
+                    <a th:if="${hasPrevioisPage == true}"
+                       th:href="@{'/page/sso/adminList/' + ${prePage} + ',' + ${pageSize} + ','+ ${userName}+'.html'}" class="page">上一页</a>
+
+                    <a th:each="pageN : ${navigatepageNums}"
+                       th:href="@{'/page/sso/adminList/' + ${pageN} + ',' + ${pageSize} + ','+ ${userName}+ '.html'}" th:text="${pageN}" class="page"></a>
+
+                    <a th:if="${hastNextPage == true}"
+                       th:href="@{'/page/sso/adminList/' + ${nextPage} + ',' + ${pageSize} + ','+ ${userName}+'.html'}" class="page">下一页</a>
+
+                    <a th:href="@{'/page/sso/adminList/' + ${pages} + ',' + ${pageSize} + ','+ ${userName}+'.html'}" class="page">尾页</a>
+                </div>
+            </div>
+            <script type="text/javascript" th:src="@{/static/scripts/backstage/adminList.js}" src="/static/scripts/backstage/adminList.js"></script>
+        </div>
+    </body>
+</html>

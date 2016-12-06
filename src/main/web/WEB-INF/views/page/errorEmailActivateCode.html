@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+    <h3>
+        邮箱激活码已失效或错误,请重新
+        <a th:if="${type == 0}" href="/page/register/1.html">注册</a>
+        <a th:if="${type == 1}" href="/page/register/1.html">绑定</a>
+    </h3>
+</body>
+</html>

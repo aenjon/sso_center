@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="../../public/backstage">
+    <head></head>
+    <body>
+        <div id="content" layout:fragment="content">
+            <div class="index_title">客服员列表</div>
+
+            <div class="tab_search">
+                <div class="Single_Log">确认筛选项：</div>
+                <select>
+                    <option>客服员状态</option>
+                    <option>激活</option>
+                    <option>冻结</option>
+                </select>
+                <ul class="arrange">
+                    <li>升序</li>
+                    <li>降序</li>
+                </ul>
+            </div>
+
+            <table class="service_tab">
+                <thead>
+                    <tr>
+                        <th>客服员用户名</th>
+                        <th>客服员ID</th>
+                        <th>绑定阿里悟空ID</th>
+                        <th>客服状态</th>
+                        <th>接待客户数量</th>
+                        <th>提交二次客服次数</th>
+                        <th>满意度评价</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <input type="checkbox"/>
+                            小华
+                        </td>
+                        <td>1001</td>
+                        <td>1001</td>
+                        <td>激活</td>
+                        <td>5</td>
+                        <td>2</td>
+                        <td>9.5</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="checkbox"/>
+                            小师
+                        </td>
+                        <td>1002</td>
+                        <td>1002</td>
+                        <td>激活</td>
+                        <td>5</td>
+                        <td>2</td>
+                        <td>9.5</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="checkbox"/>
+                            小京
+                        </td>
+                        <td>1003</td>
+                        <td>1003</td>
+                        <td>冻结</td>
+                        <td>5</td>
+                        <td>2</td>
+                        <td>9.5</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="checkbox"/>
+                            小城
+                        </td>
+                        <td>1004</td>
+                        <td>1004</td>
+                        <td>冻结</td>
+                        <td>5</td>
+                        <td>2</td>
+                        <td>9.5</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tab_foot">
+                <div class="all_select"><input type="checkbox" class="checkAll" />全选</div>
+                <ul class="handle">
+                    <li>客服会话记录</li>
+                    <li>修改客服状态</li>
+                    <li>重置密码</li>
+                </ul>
+                <div class="pages">
+                    <div class="jil">共58999条记录</div>
+                    <a href="#" class="page">首页</a>
+                    <a href="#" class="page">上一页</a>
+                    <a href="#" class="page">下一页</a>
+                    <a href="#" class="page">尾页</a>
+                    <select>
+                        <option>1/20</option>
+                        <option>2/20</option>
+                        <option>3/20</option>
+                        <option>4/20</option>
+                        <option>5/20</option>
+                    </select>
+                </div>
+            </div>
+
+            <script type="text/javascript" th:src="@{/static/scripts/backstage/serviceList.js}" src="/static/scripts/backstage/serviceList.js"></script>
+        </div>
+    </body>
+</html>

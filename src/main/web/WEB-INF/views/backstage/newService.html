@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="../../public/backstage">
+        <head></head>
+    <body>
+        <div id="content" layout:fragment="content">
+            <div class="index_title">新增客服</div>
+
+            <div class="service_box">
+                <div class="users_message" style="margin-top:20px;">
+                    <div class="users_message_l">*</div>
+                    <div class="users_message_name">新增客服员用户名：</div>
+                    <input type="text" />
+                </div>
+                <div class="users_message">
+                    <div class="users_message_l">*</div>
+                    <div class="users_message_name">新增客服员ID：</div>
+                    <input type="text" disabled="disabled"/>
+                    <div class="users_message_r">系统自动分配</div>
+                </div>
+                <div class="users_message">
+                    <div class="users_message_l">*</div>
+                    <div class="users_message_name">绑定阿里悟空ID：</div>
+                    <input type="text" />
+                </div>
+                <div class="users_message">
+                    <div class="users_message_l">*</div>
+                    <div class="users_message_name">工作台密码：</div>
+                    <input type="password" />
+                </div>
+                <ul class="build_submit">
+                    <li class="selected">
+                        <a href="createService.html" class="selected">保存</a>
+                    </li>
+                    <li>
+                        <a href="serviceList.html">取消</a>
+                    </li>
+                </ul>
+            </div>
+
+            <script type="text/javascript" th:src="@{/static/scripts/backstage/newService.js}" src="/static/scripts/backstage/newService.js"></script>
+        </div>
+    </body>
+</html>

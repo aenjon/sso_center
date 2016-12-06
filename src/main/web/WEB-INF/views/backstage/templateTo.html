@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="../../public/backstage">
+    <head></head>
+    <body>
+        <div id="content" layout:fragment="content">
+            <div class="index_title">新增用户</div>
+
+            <div class="users_div">
+                <ul class="users">
+                    <li><a href="newUser.html">添加用户</a></li>
+                    <li><a href="templateTo.html" class="selected">批量导入用户</a></li>
+                </ul>
+            </div>
+
+            <div class="users_box">
+                <a href="template.html" class="template">模版导入</a>
+                <table class="users_tab">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>添加时间</th>
+                            <th>文件名称</th>
+                            <th>添加用户总条数</th>
+                            <th>成功条数</th>
+                            <th>失败条数</th>
+                            <th>失败原因</th>
+                            <th>添加人</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox"/>1</td>
+                            <td>2015-12-22</td>
+                            <td>教育学院附属学校九年级1班</td>
+                            <td>50</td>
+                            <td>50</td>
+                            <td>0</td>
+                            <td></td>
+                            <td>admin</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="tab_foot" style="width:860px;">
+                    <div class="all_select"><input type="checkbox" />全选</div>
+                    <ul class="handle">
+                        <li>查看详情</li>
+                        <li>导出结果</li>
+                        <li>删除记录</li>
+                    </ul>
+                    <div class="pages">
+                        <div class="jil">共58999条记录</div>
+                        <a href="#" class="page">首页</a>
+                        <a href="#" class="page">上一页</a>
+                        <a href="#" class="page">下一页</a>
+                        <a href="#" class="page">尾页</a>
+                        <select>
+                            <option>1/20</option>
+                            <option>2/20</option>
+                            <option>3/20</option>
+                            <option>4/20</option>
+                            <option>5/20</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+                $('#new_user').addClass('selected');
+            </script>
+        </div>
+    </body>
+</html>

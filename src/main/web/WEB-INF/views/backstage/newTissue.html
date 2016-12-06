@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="../../public/backstage">
+    <head>
+        <title>新增组织机构</title>
+    </head>
+    <body>
+        <div id="content" layout:fragment="content">
+            <div class="index_title">新增组织机构</div>
+
+            <div class="tissue_box">
+                <div class="tissue_message" style="margin-top:20px;">
+                    <div class="tissue_box_l">*</div>
+                    <div class="tissue_box_name">所属区域：</div>
+                    <select name="parentId">
+                        <option value="ss">所属区域</option>
+                        <option th:each="organization : ${organizationList}" th:value="${organization.getId()}" th:text="${organization.getOrganizationName()}"></option>
+                    </select>
+                </div>
+                <div class="tissue_message">
+                    <div class="tissue_box_l">*</div>
+                    <div class="tissue_box_name">组织机构名称：</div>
+                    <input type="text" name="organizationName"/>
+                </div>
+                <ul class="build_submit">
+                    <li class="selected">
+                        <a href="javascript:void(0);" class="selected">保存</a>
+                    </li>
+                    <li>
+                        <a href="/page/sso/tissueList/1,10,s,0,0.html"> 取消</a>
+                    </li>
+                </ul>
+            </div>
+
+            <script type="text/javascript" th:src="@{/static/scripts/backstage/newTissue.js}" src="/static/scripts/backstage/newTissue.js"></script>
+        </div>
+    </body>
+</html>

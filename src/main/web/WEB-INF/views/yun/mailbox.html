@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="../../public/yun">
+    <head>
+        <link th:href="@{/static/css/validform.css}" href="../../../static/css/validform.css" rel="stylesheet" type="text/css"/>
+        <script text="text/javascript" th:src="@{/static/scripts/jquery/jquery-1.11.3.min.js}" src="../../../static/scripts/jquery/jquery-1.11.3.min.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/ie/html5shiv.js}" src="../../../static/scripts/ie/html5shiv.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/ie/placeholder.js}"  src="../../../static/scripts/ie/placeholder.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/validform/Validform_v5.3.2_min.js}" src="../../../static/scripts/validform/Validform_v5.3.2_min.js"></script>
+    </head>
+    <body>
+      <div id="content" layout:fragment="content">
+          <div class="long_input_box">
+              <form class="bindMailForm" action="/sso/updateEmail.json" method="post">
+                  <div class="long_input_top">
+                      <div class="input_font">邮箱</div>
+                      <input type="text" name="email" placeholder="用于绑定账号以及验证" class="email"/>
+                      <input type="submit" class="email_submit" value="下一步"/>
+                  </div>
+                  <div class="long_input_bot">用于接收来自平台的通知和找回密码，非常重要!</div>
+              </form>
+          </div>
+
+          <script type="text/javascript" th:src="@{/static/scripts/yun/mailbox.js}" src="/static/scripts/yun/mailbox.js"></script>
+      </div>
+    </body>
+</html>

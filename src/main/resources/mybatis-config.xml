@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+       <typeAlias type="com.hsjc.ssoCenter.core.domain.ActivateEmailMess" alias="ActivateEmailMess"/>
+       <typeAlias type="com.hsjc.ssoCenter.core.domain.EmailActivate" alias="EmailActivate"/>
+       <typeAlias type="com.hsjc.ssoCenter.core.domain.EmailResetPwd" alias="EmailResetPwd"/>
+       <typeAlias type="com.hsjc.ssoCenter.core.domain.EmailSend" alias="EmailSend"/>
+       <typeAlias type="com.hsjc.ssoCenter.core.domain.Organization" alias="Organization"/>
+       <typeAlias type="com.hsjc.ssoCenter.core.domain.Restactiontype" alias="Restactiontype"/>
+       <typeAlias type="com.hsjc.ssoCenter.core.domain.RestfulLog" alias="RestfulLog"/>
+       <typeAlias type="com.hsjc.ssoCenter.core.domain.SchoolInvite" alias="SchoolInvite"/>
+       <typeAlias type="com.hsjc.ssoCenter.core.domain.SmsBindPhoneNum" alias="SmsBindPhoneNum"/>
+       <typeAlias type="com.hsjc.ssoCenter.core.domain.SmsResetPasswd" alias="SmsResetPasswd"/>
+       <typeAlias type="com.hsjc.ssoCenter.core.domain.SmsSend" alias="SmsSend"/>
+       <typeAlias type="com.hsjc.ssoCenter.core.domain.SystemLog" alias="SystemLog"/>
+       <typeAlias type="com.hsjc.ssoCenter.core.domain.ThirdClients" alias="ThirdClients"/>
+       <typeAlias type="com.hsjc.ssoCenter.core.domain.UserMain" alias="UserMain"/>
+       <typeAlias type="com.hsjc.ssoCenter.core.domain.UserStudent" alias="UserStudent"/>
+       <typeAlias type="com.hsjc.ssoCenter.core.domain.UserTeacher" alias="UserTeacher"/>
+       <typeAlias type="com.hsjc.ssoCenter.core.domain.UserTemp" alias="UserTemp"/>
+       <typeAlias type="com.hsjc.ssoCenter.core.domain.ThirdFilter" alias="ThirdFilter"/>
+       <typeAlias type="com.hsjc.ssoCenter.core.domain.ThirdSynUserDetailLog" alias="ThirdSynUserDetailLog"/>
+       <typeAlias type="com.hsjc.ssoCenter.core.domain.SystemProperties" alias="SystemProperties"/>
+       <typeAlias type="com.hsjc.ssoCenter.core.domain.IndexIcos" alias="IndexIcos"/>
+
+        <typeAlias type="com.hsjc.ssoCenter.core.domain.Role" alias="Role"/>
+        <typeAlias type="com.hsjc.ssoCenter.core.domain.Resource" alias="Resource"/>
+        <typeAlias type="com.hsjc.ssoCenter.core.domain.UserRole" alias="UserRole"/>
+        <typeAlias type="com.hsjc.ssoCenter.core.domain.UserResource" alias="UserResource"/>
+        <typeAlias type="com.hsjc.ssoCenter.core.domain.RoleResource" alias="RoleResource"/>
+        <typeAlias type="com.hsjc.ssoCenter.core.domain.Test" alias="Test"/>
+    </typeAliases>
+
+    <!--
+    plugins在配置文件中的位置必须符合要求，否则会报错，顺序如下:
+    properties?, settings?,
+    typeAliases?, typeHandlers?,
+    objectFactory?,objectWrapperFactory?,
+    plugins?,
+    environments?, databaseIdProvider?, mappers?
+    -->
+    <plugins>
+        <!-- com.github.pagehelper为PageHelper类所在包名 -->
+        <plugin interceptor="com.github.pagehelper.PageHelper">
+            <!-- 4.0.0以后版本可以不设置该参数 -->
+            <property name="dialect" value="mysql"/>
+            <!-- 该参数默认为false -->
+            <!-- 设置为true时，会将RowBounds第一个参数offset当成pageNum页码使用 -->
+            <!-- 和startPage中的pageNum效果一样-->
+            <property name="offsetAsPageNum" value="true"/>
+            <!-- 该参数默认为false -->
+            <!-- 设置为true时，使用RowBounds分页会进行count查询 -->
+            <property name="rowBoundsWithCount" value="true"/>
+            <!-- 设置为true时，如果pageSize=0或者RowBounds.limit = 0就会查询出全部的结果 -->
+            <!-- （相当于没有执行分页查询，但是返回结果仍然是Page类型）-->
+            <property name="pageSizeZero" value="true"/>
+            <!-- 3.3.0版本可用 - 分页参数合理化，默认false禁用 -->
+            <!-- 启用合理化时，如果pageNum<1会查询第一页，如果pageNum>pages会查询最后一页 -->
+            <!-- 禁用合理化时，如果pageNum<1或pageNum>pages会返回空数据 -->
+            <property name="reasonable" value="true"/>
+            <!-- 3.5.0版本可用 - 为了支持startPage(Object params)方法 -->
+            <!-- 增加了一个`params`参数来配置参数映射，用于从Map或ServletRequest中取值 -->
+            <!-- 可以配置pageNum,pageSize,count,pageSizeZero,reasonable,orderBy,不配置映射的用默认值 -->
+            <!-- 不理解该含义的前提下，不要随便复制该配置 -->
+            <property name="params" value="pageNum=start;pageSize=limit;"/>
+            <!-- 支持通过Mapper接口参数来传递分页参数 -->
+            <property name="supportMethodsArguments" value="true"/>
+            <!-- always总是返回PageInfo类型,check检查返回类型是否为PageInfo,none返回Page -->
+            <property name="returnPageInfo" value="check"/>
+        </plugin>
+    </plugins>
+
+   <mappers>
+       <mapper resource="com/hsjc/ssoCenter/core/mapper/EmailActivateMapper.xml"/>
+       <mapper resource="com/hsjc/ssoCenter/core/mapper/EmailResetPwdMapper.xml"/>
+       <mapper resource="com/hsjc/ssoCenter/core/mapper/EmailSendMapper.xml"/>
+       <mapper resource="com/hsjc/ssoCenter/core/mapper/IndexIcosMapper.xml"/>
+       <mapper resource="com/hsjc/ssoCenter/core/mapper/OrganizationMapper.xml"/>
+       <mapper resource="com/hsjc/ssoCenter/core/mapper/RestactiontypeMapper.xml"/>
+       <mapper resource="com/hsjc/ssoCenter/core/mapper/RestfulLogMapper.xml"/>
+       <mapper resource="com/hsjc/ssoCenter/core/mapper/SchoolInviteMapper.xml"/>
+       <mapper resource="com/hsjc/ssoCenter/core/mapper/SmsBindPhoneNumMapper.xml"/>
+       <mapper resource="com/hsjc/ssoCenter/core/mapper/SmsResetPasswdMapper.xml"/>
+       <mapper resource="com/hsjc/ssoCenter/core/mapper/SmsSendMapper.xml"/>
+       <mapper resource="com/hsjc/ssoCenter/core/mapper/SynMapper.xml"/>
+       <mapper resource="com/hsjc/ssoCenter/core/mapper/SystemLogMapper.xml"/>
+       <mapper resource="com/hsjc/ssoCenter/core/mapper/ThirdClientsMapper.xml"/>
+       <mapper resource="com/hsjc/ssoCenter/core/mapper/UserMainMapper.xml"/>
+       <mapper resource="com/hsjc/ssoCenter/core/mapper/UserStudentMapper.xml"/>
+       <mapper resource="com/hsjc/ssoCenter/core/mapper/UserTeacherMapper.xml"/>
+       <mapper resource="com/hsjc/ssoCenter/core/mapper/UserTempMapper.xml"/>
+       <mapper resource="com/hsjc/ssoCenter/core/mapper/ThirdFilterMapper.xml"/>
+       <mapper resource="com/hsjc/ssoCenter/core/mapper/ThirdSynUserDetailLogMapper.xml"/>
+       <mapper resource="com/hsjc/ssoCenter/core/mapper/SystemPropertiesMapper.xml"/>
+       <mapper resource="com/hsjc/ssoCenter/core/mapper/TestMapper.xml"/>
+   </mappers>
+</configuration>

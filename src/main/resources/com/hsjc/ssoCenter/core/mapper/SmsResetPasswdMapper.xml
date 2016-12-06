@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hsjc.ssoCenter.core.mapper.SmsResetPasswdMapper">
+  <resultMap id="BaseResultMap" type="com.hsjc.ssoCenter.core.domain.SmsResetPasswd">
+    <id column="resetId" jdbcType="INTEGER" property="resetId" />
+    <result column="authId" jdbcType="INTEGER" property="authId" />
+    <result column="userId" jdbcType="BIGINT" property="userId" />
+    <result column="newPwdPlain" jdbcType="VARCHAR" property="newPwdPlain" />
+    <result column="newPwdCrypt" jdbcType="VARCHAR" property="newPwdCrypt" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    resetId, authId, userId, newPwdPlain, newPwdCrypt
+  </sql>
+
+  <!--
+   @author : zga
+   @date : 2015-12-04
+   新增
+  -->
+  <insert id="insert" parameterType="com.hsjc.ssoCenter.core.domain.SmsResetPasswd">
+    insert into tbsmsresetpasswd (resetId, authId, userId,
+      newPwdPlain, newPwdCrypt)
+    values (#{resetId}, #{authId}, #{userId}, 
+      #{newPwdPlain}, #{newPwdCrypt})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.hsjc.ssoCenter.core.domain.SmsResetPasswd">
+    insert into tbsmsresetpasswd
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="resetId != null">
+        resetId,
+      </if>
+      <if test="authId != null">
+        authId,
+      </if>
+      <if test="userId != null">
+        userId,
+      </if>
+      <if test="newPwdPlain != null">
+        newPwdPlain,
+      </if>
+      <if test="newPwdCrypt != null">
+        newPwdCrypt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="resetId != null">
+        #{resetId},
+      </if>
+      <if test="authId != null">
+        #{authId},
+      </if>
+      <if test="userId != null">
+        #{userId},
+      </if>
+      <if test="newPwdPlain != null">
+        #{newPwdPlain},
+      </if>
+      <if test="newPwdCrypt != null">
+        #{newPwdCrypt},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbsmsresetpasswd
+    where resetId = #{resetId}
+  </delete>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.hsjc.ssoCenter.core.domain.SmsResetPasswd">
+    update tbsmsresetpasswd
+    <set>
+      <if test="authId != null">
+        authId = #{authId},
+      </if>
+      <if test="userId != null">
+        userId = #{userId},
+      </if>
+      <if test="newPwdPlain != null">
+        newPwdPlain = #{newPwdPlain},
+      </if>
+      <if test="newPwdCrypt != null">
+        newPwdCrypt = #{newPwdCrypt},
+      </if>
+    </set>
+    where resetId = #{resetId}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.hsjc.ssoCenter.core.domain.SmsResetPasswd">
+    update tbsmsresetpasswd
+    set authId = #{authId},
+      userId = #{userId},
+      newPwdPlain = #{newPwdPlain},
+      newPwdCrypt = #{newPwdCrypt}
+    where resetId = #{resetId}
+  </update>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbsmsresetpasswd
+    where resetId = #{resetId}
+  </select>
+</mapper>

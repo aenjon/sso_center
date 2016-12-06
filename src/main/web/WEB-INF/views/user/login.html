@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link th:href="@{/static/css/sso.css}" href="../../../static/css/sso.css" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/static/css/bootstrap.css}" href="../../../static/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/static/css/validform.css}" href="../../../static/css/validform.css" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/static/scripts/artDialog-master/css/ui-dialog.css}" href="../static/scripts/artDialog-master/css/ui-dialog.css" rel="stylesheet" type="text/css"/>
+        <script text="text/javascript" th:src="@{/static/scripts/jquery/jquery-1.11.3.min.js}" src="../../../static/scripts/jquery/jquery-1.11.3.min.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/ie/html5shiv.js}" src="../../../static/scripts/ie/html5shiv.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/ie/placeholder.js}"  src="../../../static/scripts/ie/placeholder.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/validform/Validform_v5.3.2_min.js}" src="../../../static/scripts/validform/Validform_v5.3.2_min.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/artDialog-master/dist/dialog-min.js}" src="../static/scripts/artDialog-master/dist/dialog-min.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/util/SSOUtil.js}" src="../static/scripts/util/SSOUtil.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/constant/constant.js}" src="../static/scripts/constant/constant.js"></script>
+        <style type="text/css">
+            .Validform_checktip{
+                line-height: 38px;
+                height: 38px;
+                top:0;
+                position: absolute;
+                left:250px;
+            }
+        </style>
+    </head>
+    <body>
+        <header class="header">
+            <div class="center">
+                <div class="label-info">华师智慧教育云平台</div>
+            </div>
+        </header>
+        <div class="banner">
+            <img src="../../../static/images/yun/sso_banner.png"/>
+            <div class="center">
+                <div class="register_box">
+                    <div class="title" id="please_login">请登录</div>
+                    <input type="hidden" name="errorMessage" th:value="${errorMessage}"/>
+                    <form class="regForm" method="post" action="/user/login.html">
+                        <input type="hidden" name="clientId" th:value="${clientId}"/>
+                        <input type="hidden" name="openId" th:value="${openId}"/>
+                        <label>
+                            <div class="registerImg1"></div>
+                            <input type="text" name="username" class="register_input text inputxt" />
+                        </label>
+                        <label>
+                            <div class="registerImg2"></div>
+                            <input type="password" name="password" class="register_input password2 inputxt"/>
+                        </label>
+                        <ul class="remember">
+                            <li class="left">
+                                <input type="checkbox" name="rememberMe"/>
+                                记住登录名
+                            </li>
+                            <li class="right">
+                                <input type="checkbox" />
+                                自动登录
+                            </li>
+                        </ul>
+                        <input type="submit" id="register_submit" class="register_submit" value="登录"/>
+                        <div class="forget">
+                            <a href="#" class="left">忘记密码了？</a>
+                            <a href="/page/register/1.html" class="right" target="_blank">立即注册</a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="center">
+                <div class="partner">
+                    <div class="title">合作伙伴</div>
+                    <ul class="partner_icon">
+                        <li>
+                            <img src="../../../static/images/yun/p1.png"/>
+                        </li>
+                        <li>
+                            <img src="../../../static/images/yun/p2.png"/>
+                        </li>
+                        <li>
+                            <img src="../../../static/images/yun/p3.png"/>
+                        </li>
+                        <li>
+                            <img src="../../../static/images/yun/p4.png"/>
+                        </li>
+                        <li>
+                            <img src="../../../static/images/yun/p5.png"/>
+                        </li>
+                        <li>
+                            <img src="../../../static/images/yun/p6.png"/>
+                        </li>
+                        <li>
+                            <img src="../../../static/images/yun/p7.png"/>
+                        </li>
+                    </ul>
+                </div>
+                <div class="partner">
+                    <div class="title">联合研发单位</div>
+                    <ul class="partner_icon">
+                        <li>
+                            <img src="../../../static/images/yun/p8.png"/>
+                        </li>
+                        <li>
+                            <img src="../../../static/images/yun/p9.png"/>
+                        </li>
+                        <li>
+                            <img src="../../../static/images/yun/p9.png"/>
+                        </li>
+                        <li>
+                            <img src="../../../static/images/yun/p9.png"/>
+                        </li>
+                        <li>
+                            <img src="../../../static/images/yun/p9.png"/>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="center">
+                <div class="foot-size">客服电话：400-880-5056        客服邮箱：Help@hsjc.com.cn</div>
+                <div class="foot-size">共筑教育云平台 ,创建教育新模式</div>
+                <div class="foot-size">Copyright ©华师京城网络科技股份有限公司  沪IC备10208270号-3</div>
+                <div class="android">
+                    <img src="../../../static/images/yun/android.png"/>
+                    <span>For  Android</span>
+                </div>
+                <div class="ios">
+                    <img src="../../../static/images/yun/ios.png"/>
+                    <span>For  IOS</span>
+                </div>
+            </div>
+        </footer>
+        <script text="text/javascript" src="/static/scripts/login.js" th:src="@{/static/scripts/login.js}"></script>
+
+    </body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="../../public/backstage">
+    <head></head>
+    <body>
+        <div id="content" layout:fragment="content">
+
+            <div class="addBox" style="display: none;">
+                <form name="addForm">
+                    <div class="examine_box_aside">
+                        <div class="examine_title">新增数据权限过滤</div>
+                    </div>
+                    <div class="modifiedBox_center">
+                        <table class="modifiedBoxListTab">
+                            <tr>
+                                <td>平台名称</td>
+                                <td>
+                                    <select name="clientId">
+                                        <option th:each="tc : ${thirdClientsList}" th:value="${tc.getClientId()}" th:text="${tc.getDescription()}"></option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>组织机构</td>
+                                <td>
+                                    <select name="organizationCode">
+                                        <option th:each="torg : ${organizationList}" th:value="${torg.organizationCode}"
+                                                th:text="${torg.organizationName}"></option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>用户类型</td>
+                                <td>
+                                    <select name="tstudent">
+                                        <option value="teacher">老师</option>
+                                        <option value="student">学生</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="examine_box_aside">
+                        <div class="addInput">
+                            <input type="button" value="新增" class="add_new"/>
+                            <input type="button" value="取消" class="cancel"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="index_title">导入数据权限过滤列表</div>
+            <div class="tab_search">
+                <div class="tab_fn">
+                    <input type="hidden" name="pageNum" th:value="${pageNum}"/>
+                    <input type="hidden" name="pageSize" th:value="${pageSize}"/>
+                    <input type="button" value="查询" class="tab_fnLi"/>
+                </div>
+
+                <input type="text" name="description" th:if="${description == '0'}" placeholder="输入平台名称…"/>
+                <input type="text" name="description" th:unless="${description == '0'}" th:value="${description}" placeholder="输入平台名称…"/>
+            </div>
+
+            <table class="platform_tab">
+                <thead>
+                    <tr>
+                        <th>平台名称</th>
+                        <th>client_id</th>
+                        <th>机构代码</th>
+                        <th>机构名称</th>
+                        <th>同步用户类型</th>
+                        <th>编辑</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="tf : ${thirdFilterList}">
+                        <input type="hidden" name="filterId" th:value="${tf.fid}"/>
+                        <td th:text="${tf.description}"></td>
+                        <td th:text="${tf.clientId}"></td>
+                        <td th:text="${tf.organizationCode}"></td>
+                        <td th:text="${tf.organizationName}"></td>
+                        <td th:if="${tf.tstudent eq 'teacher'}">老师</td>
+                        <td th:if="${tf.tstudent eq 'student'}">学生</td>
+                        <td><a href="javascript:void(0);" class="del_clientFilter">删除</a></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tab_foot">
+                <ul class="handle">
+                    <li>新增</li>
+                </ul>
+                <div class="pages">
+                    <div class="jil">共<font th:text="${total}"></font>条记录</div>
+                    <a th:href="@{'/page/sso/platformFilterList/1,' + ${pageSize} + ',' + ${description} + '.html'}" class="page">首页</a>
+
+                    <a th:if="${hasPrevioisPage == true}"
+                       th:href="@{'/page/sso/platformFilterList/' + ${prePage} + ',' + ${pageSize} + ',' + ${description} + '.html'}" class="page">上一页</a>
+
+                    <a th:each="pageN : ${navigatepageNums}"
+                       th:href="@{'/page/sso/platformFilterList/' + ${pageN} + ',' + ${pageSize} + ',' + ${description} + '.html'}" th:text="${pageN}" class="page"></a>
+
+                    <a th:if="${hastNextPage == true}"
+                       th:href="@{'/page/sso/platformFilterList/' + ${nextPage} + ',' + ${pageSize} + ',' + ${description} + '.html'}" class="page">下一页</a>
+
+                    <a th:href="@{'/page/sso/platformFilterList/' + ${pages} + ',' + ${pageSize} + ',' + ${description}+ '.html'}" class="page">尾页</a>
+                </div>
+            </div>
+
+            <script type="text/javascript" th:src="@{/static/scripts/backstage/platformFilter.js}" src="/static/scripts/backstage/platformFilter.js"></script>
+        </div>
+    </body>
+</html>
