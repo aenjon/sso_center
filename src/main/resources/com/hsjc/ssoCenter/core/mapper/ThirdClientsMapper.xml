@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hsjc.ssoCenter.core.mapper.ThirdClientsMapper" >
+  <resultMap id="BaseResultMap" type="com.hsjc.ssoCenter.core.domain.ThirdClients" >
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="clientId" property="clientId" jdbcType="VARCHAR" />
+    <result column="clientSecret" property="clientSecret" jdbcType="VARCHAR" />
+    <result column="contactorName" property="contactorName" jdbcType="VARCHAR" />
+    <result column="contactorPhone" property="contactorPhone" jdbcType="VARCHAR" />
+    <result column="briefName" property="briefName" jdbcType="VARCHAR" />
+    <result column="ssoPassword" property="ssoPassword" jdbcType="VARCHAR" />
+    <result column="publicKey" property="publicKey" jdbcType="VARCHAR" />
+    <result column="synCount" property="synCount" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="callbackUrl" property="callbackUrl" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, clientId, clientSecret, contactorName, contactorPhone, briefName, ssoPassword,
+    publicKey,synCount,description,callbackUrl,status
+  </sql>
+
+  <!--
+   @author : zga
+   @date : 2015-12-04
+   新增
+  -->
+  <insert id="insert" parameterType="com.hsjc.ssoCenter.core.domain.ThirdClients">
+    insert into tb3rdclients (clientId, clientSecret,
+      contactorName, contactorPhone, briefName, 
+      ssoPassword, publicKey)
+    values (#{id}, #{clientId}, #{clientSecret}, 
+      #{contactorName}, #{contactorPhone}, #{briefName}, 
+      #{ssoPassword}, #{publicKey},#{description})
+  </insert>
+
+  <!--
+    @author : zga
+    @date : 2016-1-28
+    新增第三方
+  -->
+  <insert id="addNewThirdClient">
+    INSERT INTO tb3rdclients (clientId, clientSecret, contactorName, contactorPhone, briefName, ssoPassword,
+    description,callbackUrl)
+    VALUES (#{clientId}, #{clientSecret},
+      #{contactorName}, #{contactorPhone}, #{briefName},
+      #{ssoPassword},#{description},#{callbackUrl})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.hsjc.ssoCenter.core.domain.ThirdClients" >
+    insert into tb3rdclients
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="clientId != null" >
+        clientId,
+      </if>
+      <if test="clientSecret != null" >
+        clientSecret,
+      </if>
+      <if test="contactorName != null" >
+        contactorName,
+      </if>
+      <if test="contactorPhone != null" >
+        contactorPhone,
+      </if>
+      <if test="briefName != null" >
+        briefName,
+      </if>
+      <if test="ssoPassword != null" >
+        ssoPassword,
+      </if>
+      <if test="publicKey != null" >
+        publicKey,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="clientId != null" >
+        #{clientId},
+      </if>
+      <if test="clientSecret != null" >
+        #{clientSecret},
+      </if>
+      <if test="contactorName != null" >
+        #{contactorName},
+      </if>
+      <if test="contactorPhone != null" >
+        #{contactorPhone},
+      </if>
+      <if test="briefName != null" >
+        #{briefName},
+      </if>
+      <if test="ssoPassword != null" >
+        #{ssoPassword},
+      </if>
+      <if test="publicKey != null" >
+        #{publicKey},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tb3rdclients
+    where id = #{id}
+  </delete>
+
+  <!--
+    @author : zga
+    @date : 2016-1-28
+    删除第三方平台(更新状态为0)
+  -->
+  <update id="updateThirdClientByClientId">
+    UPDATE tb3rdclients
+    SET status = '0'
+    WHERE clientId = #{clientId}
+  </update>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.hsjc.ssoCenter.core.domain.ThirdClients" >
+    update tb3rdclients
+    <set >
+      <if test="clientId != null" >
+        clientId = #{clientId},
+      </if>
+      <if test="clientSecret != null" >
+        clientSecret = #{clientSecret},
+      </if>
+      <if test="contactorName != null" >
+        contactorName = #{contactorName},
+      </if>
+      <if test="contactorPhone != null" >
+        contactorPhone = #{contactorPhone},
+      </if>
+      <if test="briefName != null" >
+        briefName = #{briefName},
+      </if>
+      <if test="ssoPassword != null" >
+        ssoPassword = #{ssoPassword},
+      </if>
+      <if test="publicKey != null" >
+        publicKey = #{publicKey},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.hsjc.ssoCenter.core.domain.ThirdClients" >
+    update tb3rdclients
+    set clientId = #{clientId},
+      clientSecret = #{clientSecret},
+      contactorName = #{contactorName},
+      contactorPhone = #{contactorPhone},
+      briefName = #{briefName},
+      ssoPassword = #{ssoPassword},
+      publicKey = #{publicKey}
+    where id = #{id}
+  </update>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from tb3rdclients
+    where id = #{id}
+  </select>
+
+  <!--
+    @author : zga
+    @date : 2016-1-28
+    更新第三方信息
+  -->
+  <update id="updateThirdClientInfoByClientId">
+    UPDATE tb3rdclients
+    <set>
+      <if test="contactorName != null">
+        contactorName = #{contactorName},
+      </if>
+      <if test="contactorPhone != null">
+        contactorPhone = #{contactorPhone},
+      </if>
+      <if test="callbackUrl != null">
+        callbackUrl = #{callbackUrl}
+      </if>
+    </set>
+    WHERE clientId = #{clientId}
+  </update>
+
+  <!--
+    @author : zga
+    @date : 2015-12-11
+    根据clientId查询记录
+  -->
+  <select id="selectByClientId" parameterType="ThirdClients" resultType="ThirdClients">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM tb3rdclients WHERE clientId = #{clientId}
+  </select>
+
+  <!--
+    @author : zga
+    @date : 2015-12-11
+    查询所有的ThirdClients记录
+  -->
+  <select id="selectAllThirdClients" resultType="ThirdClients">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM tb3rdclients
+    WHERE status = '1'
+  </select>
+
+  <!--
+    @author : zga
+    @date : 2015-12-11
+    根据平台名称查询所有的ThirdClient记录
+  -->
+  <select id="selectThirdClientByName" resultType="ThirdClients">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM tb3rdclients
+    <where>
+      status = '1'
+      <if test="description != null">
+        AND description like CONCAT('%','${description}','%')
+      </if>
+    </where>
+  </select>
+
+  <!--
+    @author : zga
+    @date : 2015-12-11
+    根据平台名称查询所有的ThirdClient记录
+  -->
+  <select id="selectAllThirdClientWithPage" resultType="java.util.HashMap">
+    SELECT
+    id,
+    clientId,
+    clientSecret,
+    (CASE
+    WHEN contactorName IS NULL THEN 'xxx'
+    ELSE contactorName
+    END ) AS contactorName,
+    (CASE
+    WHEN contactorPhone IS NULL THEN 'xxx'
+    ELSE contactorPhone
+    END ) AS contactorPhone,
+    briefName,
+    ssoPassword,
+    publicKey,
+    synCount,
+    (CASE
+    WHEN description IS NULL THEN 'xxx'
+    ELSE description
+    END ) AS description,
+    callbackUrl,
+    status
+    FROM tb3rdclients
+    <where>
+      status = '1'
+      <if test="description != null">
+        AND description like CONCAT('%','${description}','%')
+      </if>
+    </where>
+  </select>
+</mapper>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hsjc.ssoCenter.core.mapper.SystemPropertiesMapper" >
+  <resultMap id="BaseResultMap" type="com.hsjc.ssoCenter.core.domain.SystemProperties" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="proKey" property="proKey" jdbcType="VARCHAR" />
+    <result column="proValue" property="proValue" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modifyTime" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, proKey, proValue, createTime, modifyTime
+  </sql>
+
+  <insert id="insert" parameterType="com.hsjc.ssoCenter.core.domain.SystemProperties" >
+    insert into tbsystemproperties (proKey, proValue)
+    values (#{prokey}, #{provalue})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.hsjc.ssoCenter.core.domain.SystemProperties" >
+    insert into tbsystemproperties
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="prokey != null" >
+        proKey,
+      </if>
+      <if test="provalue != null" >
+        proValue,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+      <if test="modifytime != null" >
+        modifyTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="prokey != null" >
+        #{prokey},
+      </if>
+      <if test="provalue != null" >
+        #{provalue},
+      </if>
+      <if test="createtime != null" >
+        #{createtime},
+      </if>
+      <if test="modifytime != null" >
+        #{modifytime},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tbsystemproperties
+    where id = #{id}
+  </delete>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.hsjc.ssoCenter.core.domain.SystemProperties" >
+    update tbsystemproperties
+    <set >
+      <if test="prokey != null" >
+        proKey = #{prokey},
+      </if>
+      <if test="provalue != null" >
+        proValue = #{provalue},
+      </if>
+      <if test="modifytime != null" >
+        modifyTime = #{modifytime},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.hsjc.ssoCenter.core.domain.SystemProperties" >
+    update tbsystemproperties
+    set proKey = #{proKey},
+      proValue = #{proValue},
+      modifyTime = #{modifyTime}
+    where id = #{id}
+  </update>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from tbsystemproperties
+    where id = #{id}
+  </select>
+
+  <select id="selectAllSystemProperties" resultType="java.util.HashMap">
+    SELECT
+    MAX(CASE proKey WHEN 'mailHost' THEN proValue END) mailHost,
+    MAX(CASE proKey WHEN 'mailPort' THEN proValue END) mailPort,
+    MAX(CASE proKey WHEN 'mailUserName' THEN proValue END) mailUserName,
+    MAX(CASE proKey WHEN 'mailPassword' THEN proValue END) mailPassword,
+    MAX(CASE proKey WHEN 'mailFrom' THEN proValue END) mailFrom,
+    MAX(CASE proKey WHEN 'trdPublicKey' THEN proValue END) trdPublicKey,
+    MAX(CASE proKey WHEN 'smsUrl' THEN proValue END) smsUrl,
+    MAX(CASE proKey WHEN 'smsAppKey' THEN proValue END) smsAppKey,
+    MAX(CASE proKey WHEN 'smsAppSecret' THEN proValue END) smsAppSecret,
+    MAX(CASE proKey WHEN 'smsSignName' THEN proValue END) smsSignName,
+    MAX(CASE proKey WHEN 'smsTemplateCode' THEN proValue END) smsTemplateCode,
+    MAX(CASE proKey WHEN 'smsType' THEN proValue END) smsType,
+    MAX(CASE proKey WHEN 'websiteAddress' THEN proValue END) websiteAddress
+    FROM tbsystemproperties
+  </select>
+
+  <select id="selectMail" resultType="com.hsjc.ssoCenter.core.domain.SystemProperties">
+    select
+    <include refid="Base_Column_List" />
+     from tbsystemproperties where proKey like 'mail%';
+  </select>
+
+  <select id="selectSms" resultType="com.hsjc.ssoCenter.core.domain.SystemProperties">
+    select * from tbsystemproperties where proKey like 'sms%';
+  </select>
+</mapper>

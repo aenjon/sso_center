@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	  layout:decorator="../../public/register">
+	<head>
+		<style>
+			.progress_2{width:1040px;}
+		</style>
+	</head>
+	<body>
+		<div class="container-fluid" layout:fragment="content">
+			<div class="center">
+				<div class="register_succeed_l"></div>
+				<div class="register_succeed_r">
+					<div class="register_succeed">
+						<div class="congratulation">恭喜您注册成功！</div>
+						<a href="/user/login.html" class="login_html">立即登录&gt;&gt;</a>
+					</div>
+					<div class="leap"></div>
+				</div>
+			</div>
+
+			<script text="text/javascript" th:src="@{/static/scripts/register/register6.js}" src="/static/scripts/register/register6.js"></script>
+		</div>
+	</body>
+</html>
+

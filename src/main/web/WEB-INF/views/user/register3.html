@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	  layout:decorator="../../public/register">
+	<head></head>
+	<body>
+		<div class="container-fluid" layout:fragment="content">
+			<input type="hidden" th:value="${email}" name="email"/>
+			<input type="hidden" th:value="${expiredTicket}" name="expiredTicket"/>
+
+			<div class="center" th:if="${expiredTicket == '1'}">
+				<aside class="verify_img"></aside>
+				<section class="verify">
+					<div class="send">
+						<div class="send_l">验证信息已发送至邮箱!</div>
+						<div class="anew">重新发送</div>
+						<input type="button" class="anew60"/>
+					</div>
+					<a href="#" class="promptly">立即前往验证&gt;&gt;</a>
+					<div class="hint">(邮箱激活链接24小时内有效)</div>
+				</section>
+			</div>
+
+			<div th:if="${expiredTicket == '0'}" class="center">
+				邮箱激活码已过期,请<a href="javascript:void(0);" class="reSendEmail">重新激活</a>
+			</div>
+
+			<script text="text/javascript" th:src="@{/static/scripts/register/register3.js}" src="/static/scripts/register/register3.js"></script>
+		</div>
+	</body>
+</html>
+

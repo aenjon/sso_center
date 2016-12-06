@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hsjc.ssoCenter.core.mapper.EmailSendMapper">
+  <resultMap id="BaseResultMap" type="com.hsjc.ssoCenter.core.domain.EmailSend">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="subject" jdbcType="VARCHAR" property="subject" />
+    <result column="sendFlag" jdbcType="BIT" property="sendFlag" />
+    <result column="sendTime" jdbcType="TIMESTAMP" property="sendTime" />
+    <result column="byModule" jdbcType="VARCHAR" property="byModule" />
+    <result column="requestKeyId" jdbcType="BIGINT" property="requestKeyId" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, email, subject, sendFlag, sendTime, byModule, requestKeyId,content
+  </sql>
+
+  <!--
+   @author : zga
+   @date : 2015-12-04
+   新增
+ -->
+  <insert id="insert" parameterType="EmailSend">
+    insert into tbemailsend (email, subject,
+      byModule,
+      content)
+    values (#{email}, #{subject}, 
+      #{byModule},
+      #{content})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.hsjc.ssoCenter.core.domain.EmailSend">
+    insert into tbemailsend
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="subject != null">
+        subject,
+      </if>
+      <if test="sendFlag != null">
+        sendFlag,
+      </if>
+      <if test="sendTime != null">
+        sendTime,
+      </if>
+      <if test="byModule != null">
+        byModule,
+      </if>
+      <if test="requestKeyId != null">
+        requestKeyId,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="email != null">
+        #{email},
+      </if>
+      <if test="subject != null">
+        #{subject},
+      </if>
+      <if test="sendFlag != null">
+        #{sendFlag},
+      </if>
+      <if test="sendTime != null">
+        #{sendTime},
+      </if>
+      <if test="byModule != null">
+        #{byModule},
+      </if>
+      <if test="requestKeyId != null">
+        #{requestKeyId},
+      </if>
+      <if test="content != null">
+        #{content},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tbemailsend
+    where id = #{id}
+  </delete>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.hsjc.ssoCenter.core.domain.EmailSend">
+    update tbemailsend
+    <set>
+      <if test="email != null">
+        email = #{email},
+      </if>
+      <if test="subject != null">
+        subject = #{subject},
+      </if>
+      <if test="sendFlag != null">
+        sendFlag = #{sendFlag},
+      </if>
+      <if test="sendTime != null">
+        sendTime = #{sendTime},
+      </if>
+      <if test="byModule != null">
+        byModule = #{byModule},
+      </if>
+      <if test="requestKeyId != null">
+        requestKeyId = #{requestKeyId},
+      </if>
+      <if test="content != null">
+        content = #{content},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hsjc.ssoCenter.core.domain.EmailSend">
+    update tbemailsend
+    set email = #{email},
+      subject = #{subject},
+      sendFlag = #{sendFlag},
+      sendTime = #{sendTime},
+      byModule = #{byModule},
+      requestKeyId = #{requestKeyId},
+      content = #{content}
+    where id = #{id}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.hsjc.ssoCenter.core.domain.EmailSend">
+    update tbemailsend
+    set email = #{email},
+      subject = #{subject},
+      sendFlag = #{sendFlag},
+      sendTime = #{sendTime},
+      byModule = #{byModule},
+      requestKeyId = #{requestKeyId}
+    where id = #{id}
+  </update>
+
+  <!--
+    @author : zga
+    @date : 2016-1-20
+    更新发送Email状态
+  -->
+  <update id="updateSendFlagById">
+    UPDATE tbemailsend
+    SET sendFlag = 1,
+    sendTime = #{sendTime}
+    where id = #{id}
+  </update>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long">
+    select
+    <include refid="Base_Column_List" />
+    from tbemailsend
+    where id = #{id}
+  </select>
+
+  <!--
+    @author : zga
+    @date : 2016-1-20
+    查询Email发送表中sendFlag为0的数据
+  -->
+  <select id="selectEmailSendBySendFlag" resultType="EmailSend">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM tbemailsend
+    WHERE sendflag = 0
+  </select>
+</mapper>

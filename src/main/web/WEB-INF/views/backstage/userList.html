@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="../../public/backstage">
+    <head></head>
+    <body>
+        <div id="content" layout:fragment="content">
+            <div class="index_title">用户列表</div>
+            <div class="tab_search">
+                <select name="organization">
+                    <option value="0" th:if="${organization == '0'}" selected="selected">所属机构</option>
+                    <option value="0" th:unless="${organization == '0'}">所属机构</option>
+
+                    <option th:each="org : ${organizationList}" th:value="${org.organizationCode}"
+                            th:text="${org.organizationName}" th:if="${organization} == ${org.organizationCode}" selected="selected"></option>
+
+                    <option th:each="org : ${organizationList}" th:value="${org.organizationCode}"
+                            th:text="${org.organizationName}" th:unless="${organization} == ${org.organizationCode}"></option>
+                </select>
+                <select name="type">
+                    <option value="0" th:if="${type == '0'}" selected="selected">角色</option>
+                    <option value="0" th:unless="${type == '0'}">角色</option>
+
+                    <option value="teacher" th:if="${type == 'teacher'}" selected="selected">老师</option>
+                    <option value="teacher" th:unless="${type == 'teacher'}">老师</option>
+
+                    <option value="student" th:if="${type == 'student'}" selected="selected">学生</option>
+                    <option value="student" th:unless="${type == 'student'}">学生</option>
+                </select>
+                <select name="status">
+                    <option value="0" th:if="${status == '0'}" selected="selected">账号状态</option>
+                    <option value="0" th:unless="${status == '0'}">账号状态</option>
+
+                    <option value="wait" th:if="${status == 'wait'}" selected="selected">未激活</option>
+                    <option value="wait" th:unless="${status == 'wait'}">未激活</option>
+
+                    <option value="activated" th:if="${status == 'activated'}" selected="selected">已激活</option>
+                    <option value="activated" th:unless="${status == 'activated'}">已激活</option>
+
+                    <option value="locked" th:if="${status == 'locked'}" selected="selected">锁定</option>
+                    <option value="locked" th:unless="${status == 'locked'}">锁定</option>
+                </select>
+                <select name="createTime">
+                    <option value="0" th:if="${createTime == '0'}" selected="selected">时间</option>
+                    <option value="0" th:unless="${createTime == '0'}">时间</option>
+
+                    <option value="3" th:if="${createTime == '3'}" selected="selected">近三天来</option>
+                    <option value="3" th:unless="${createTime == '3'}">近三天来</option>
+
+                    <option value="7" th:if="${createTime == '7'}" selected="selected">近一周来</option>
+                    <option value="7" th:unless="${createTime == '7'}">近一周来</option>
+
+                    <option value="30" th:if="${createTime == '30'}" selected="selected">近一月来</option>
+                    <option value="30" th:unless="${createTime == '30'}">近一月来</option>
+                </select>
+                <div class="tab_fn">
+                    <input type="button" value="查询" class="tab_fnLi"/>
+                </div>
+                <input type="search" name="realName" th:if="${realName == '0'}" placeholder="输入姓名…"/>
+                <input type="search" name="realName" th:unless="${realName == '0'}" th:value="${realName}" placeholder="输入姓名…"/>
+            </div>
+
+            <table class="user_tab">
+                <thead>
+                    <tr>
+                        <th style="width:150px;">姓名</th>
+                        <th style="width:20px;">性别 </th>
+                        <th style="width:220px ">组织机构</th>
+                        <th style="width:100px;">类型</th>
+                        <th style="width:150px">状态</th>
+                        <th style="width:150px">注册时间</th>
+                        <th style="width:190px;">邮箱</th>
+                        <th style="width:190px;">手机</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user : ${userMainList}">
+                        <input type="hidden" name="userName" th:value="${user.userName}"/>
+                        <input type="hidden" name="id" th:value="${user.id}"/>
+
+                        <td th:if="${user.realName == 'xxx'}"></td>
+                        <td th:unless="${user.realName == 'xxx'}" th:text="${user.realName}"></td>
+
+                        <td th:if="${user.gender == '1'}">男</td>
+                        <td th:if="${user.gender == '0'}">女</td>
+
+                        <td th:if="${user.organizationName != 'xxx'}" th:text="${user.organizationName}"></td>
+                        <td th:if="${user.organizationName == 'xxx'}"></td>
+
+                        <td th:if="${user.type == 'teacher'}">老师</td>
+                        <td th:if="${user.type == 'student'}">学生</td>
+                        <td th:if="${user.type == ''}">家长</td>
+
+                        <td th:if="${user.status == 'wait'}">待激活</td>
+                        <td th:if="${user.status == 'activated'}">正常</td>
+                        <td th:if="${user.status == 'locked'}">锁定</td>
+
+                        <td th:text="${user.createTime}"></td>
+
+                        <td th:if="${user.email != 'xxx'}" th:text="${user.email}"></td>
+                        <td th:if="${user.email == 'xxx'}"></td>
+
+                        <td th:if="${user.phone != 'xxx'}" th:text="${user.phone}"></td>
+                        <td th:if="${user.phone == 'xxx'}"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tab_foot">
+                <div class="all_select"><input type="checkbox" class="checkAll"/>全选</div>
+                <ul class="handle">
+                    <li class="li_modifyAccountStatus">修改账号状态</li>
+                    <li class="li_resetPassword">重置密码</li>
+                    <!--<li>导出结果</li>-->
+                </ul>
+                <div class="pages">
+                    <div class="jil">共<font th:text="${total}"></font>条记录</div>
+                    <a th:href="@{'/page/sso/userList/1,' + ${pageSize} + ',' + ${organization} + ',' + ${type} + ',' + ${status} + ',' + ${createTime} + ',' + ${realName} +'.html'}" class="page">首页</a>
+
+                    <a th:if="${hasPrevioisPage == true}"
+                       th:href="@{'/page/sso/userList/' + ${prePage} + ',' + ${pageSize} + ',' + ${organization} + ',' + ${type} + ',' + ${status} + ',' + ${createTime} + ',' + ${realName} + '.html'}" class="page">上一页</a>
+
+                    <a th:each="pageN : ${navigatepageNums}"
+                       th:href="@{'/page/sso/userList/' + ${pageN} + ',' + ${pageSize} + ',' + ${organization} + ',' + ${type} + ',' + ${status} + ',' + ${createTime} + ',' + ${realName} + '.html'}" th:text="${pageN}" class="page"></a>
+
+                    <a th:if="${hastNextPage == true}"
+                       th:href="@{'/page/sso/userList/' + ${nextPage} + ',' + ${pageSize} + ',' + ${organization} + ',' + ${type} + ',' + ${status} + ',' + ${createTime} + ',' + ${realName} + '.html'}" class="page">下一页</a>
+
+                    <a th:href="@{'/page/sso/userList/' + ${pages} + ',' + ${pageSize} + ',' + ${organization} + ',' + ${type} + ',' + ${status} + ',' + ${createTime} + ',' + ${realName} + '.html'}" class="page">尾页</a>
+                </div>
+            </div>
+            <script type="text/javascript" th:href="@{/static/scripts/backstage/userList.js}" src="/static/scripts/backstage/userList.js"></script>
+        </div>
+    </body>
+</html>

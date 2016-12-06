@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="../../public/yun">
+    <head>
+        <link th:href="@{/static/css/validform.css}" href="../../../static/css/validform.css" rel="stylesheet" type="text/css"/>
+        <script text="text/javascript" th:src="@{/static/scripts/jquery/jquery-1.11.3.min.js}" src="../../../static/scripts/jquery/jquery-1.11.3.min.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/ie/html5shiv.js}" src="../../../static/scripts/ie/html5shiv.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/ie/placeholder.js}"  src="../../../static/scripts/ie/placeholder.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/validform/Validform_v5.3.2_min.js}" src="../../../static/scripts/validform/Validform_v5.3.2_min.js"></script>
+        <style type="text/css">
+            .Validform_checktip{margin-left:-167px;margin-top:-2px;}
+            .Validform_checktip{margin-left:-167px;margin-top:-2px;}
+        </style>
+    </head>
+    <body>
+        <div id="content" layout:fragment="content">
+           <div class="long_input_box">
+               <form class="inviteCodeForm" action="/sso/bindInviteCode.json" method="post">
+                   <div class="long_input_top">
+                       <div  class="input_font">邀请码</div>
+                       <input id="input_font" type="text" class="email" name="inviteCode"/>
+                       <input type="submit" class="email_submit" value="下一步"/>
+                   </div>
+               </form>
+           </div>
+
+           <script type="text/javascript" th:src="@{/static/scripts/yun/inviteCode.js}" src="/static/scripts/yun/inviteCode.js"></script>
+        </div>
+    </body>
+</html>

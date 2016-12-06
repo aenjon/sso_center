@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="../../public/yun">
+    <head>
+        <style type="text/css">
+            .up-img{ width:100px; height:100px;}
+            .up-img input{vertical-align:middle; margin:0; padding:0;border: 0;}
+            .up-img .file-box{ position:relative;width:340px}
+            .up-img .txt{ height:22px; border:1px solid #cdcdcd; width:180px;}
+            .up-img .btn{ background-color:#FFF; border:1px solid #CDCDCD;height:24px; width:70px;}
+            .up-img .file{ position:absolute; top:0; right:80px; height:24px; filter:alpha(opacity:0);opacity: 0;width:75px }
+            .up1-img{ width:150px; height:38px; margin-left:42px; margin-right:auto;}
+            /*.up1-img input{vertical-align:middle; margin:0; padding:0;border: 0;}*/
+            .up1-img .file-box{ position:relative;width:930px}
+            .up1-img .file-box1{ position:relative;width:930px;padding-top:40px}
+            .up1 .results{position: relative;margin: 30px 0 50px 42px;padding:10px 20px 10px 20px;width: 900px;height:200px;background-color: #ffe4b5;}
+            .up1 .results .video-img1{position: relative;width: 250px;float: left;}
+            .up1 .results .ToView-info1{position: relative;width: 600px;margin-left:40px;float: right;}
+        </style>
+    </head>
+    <body>
+        <div id="content1" layout:fragment="content">
+            <a href="/page/sso/personalEdit.html" class="edit"></a>
+           <div class="message">
+               <div class="message_l">云账号：</div>
+           </div>
+           <div class="message">
+               <div class="message_l">用户名：</div>
+               <div class="message_r" th:text="${session.user.userName}"></div>
+           </div>
+           <div class="message">
+               <div class="message_l">邮箱：</div>
+               <a th:if="${session.user.email} == null" href="/sso/bindEmail.html" class="bound">未绑定</a>
+               <span th:if="${session.user.email} != null" th:text="${session.user.email}" class="viewInfo"></span>
+           </div>
+           <div class="message">
+               <div class="message_l">手机： </div>
+               <a th:if="${session.user.phone} == null" href="/sso/bindPhone.html" class="bound">未绑定</a>
+               <span th:if="${session.user.phone} != null" th:text="${session.user.phone}" style="line-height: 35px;"></span>
+           </div>
+           <div class="message">
+               <div class="message_l">邀请码：</div>
+               <a th:if="${session.user.inviteCode} == null" href="/sso/bindInviteCode.html" class="bound">未绑定</a>
+               <span th:if="${session.user.inviteCode} != null" th:text="${session.user.inviteCode}"></span>
+           </div>
+           <form action="/sso/modifyPersonalInfo.html" method="post" enctype="multipart/form-data">
+               <div class="message" style="margin-top:10px;">
+                   <div class="message_l" style="line-height: 100px;">头像：</div>
+                   <div class="up-img">
+                       <img th:src="@{${session.user.userIcon}}" th:if="${session.user.userIcon} != null" width="100px" height="100px"  class="viewInfo"/>
+                       <div class="file-box modifyInfo" style="display: none;">
+                           <input type="file" name="imgFile"/>
+                       </div>
+                   </div>
+                   <div class="head_img_strong">(支持Jpg、Png或bmp格式的图片，建议文件小于20M)</div>
+               </div>
+               <div class="message">
+                   <div class="message_l">姓名：</div>
+                   <span th:text="${session.user.realName}" class="viewInfo"></span>
+                   <input type="text" name="realName" th:value="${session.user.realName}" class="modifyInfo" style="display: none;"/>
+               </div>
+               <div class="message">
+                   <div class="message_l">性别：</div>
+                   <span th:if="${session.user.gender} == 0" class="viewInfo">女</span>
+                   <span th:if="${session.user.gender} == 1" class="viewInfo">男</span>
+                   <ul class="sex modifyInfo" style="display: none;">
+                       <li class="selected" th:if="${session.user.gender} == 1">
+                           <input type="radio" name="gender" value="1" checked="checked"/>男
+                       </li>
+                       <li th:if="${session.user.gender} == 1">
+                           <input type="radio" name="gender" value="0"/>女
+                       </li>
+
+                       <li th:if="${session.user.gender} == 0">
+                           <input type="radio" name="gender" value="1"/>男
+                       </li>
+                       <li class="selected" th:if="${session.user.gender} == 0">
+                           <input type="radio" name="gender" value="0" checked="checked"/>女
+                       </li>
+                   </ul>
+               </div>
+           </form>
+
+           <script type="text/javascript" th:src="@{/static/scripts/yun/personalSettings.js}" src="/static/scripts/yun/personalSettings.js"></script>
+        </div>
+    </body>
+</html>

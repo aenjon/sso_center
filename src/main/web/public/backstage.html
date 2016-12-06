@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link th:href="@{/static/css/bootstrap.css}" href="../static/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/static/css/sso_backstage.css}" href="../static/css/sso_backstage.css" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/static/scripts/artDialog-master/css/ui-dialog.css}" href="../static/scripts/artDialog-master/css/ui-dialog.css" rel="stylesheet" type="text/css"/>
+        <script text="text/javascript" th:src="@{/static/scripts/jquery/jquery-1.11.3.min.js}" src="../static/scripts/jquery/jquery-1.11.3.min.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/ie/html5shiv.js}" src="../static/scripts/ie/html5shiv.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/ie/placeholder.js}" src="../static/scripts/ie/placeholder.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/artDialog-master/dist/dialog-min.js}" src="../static/scripts/artDialog-master/dist/dialog-min.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/util/SSOUtil.js}" src="../static/scripts/util/SSOUtil.js"></script>
+        <script text="text/javascript" th:src="@{/static/scripts/constant/constant.js}" src="../static/scripts/constant/constant.js"></script>
+    </head>
+    <body>
+        <div class="mask"></div>
+        <header class="header">
+            <div class="center">
+                <div class="head_r">
+                    <div class="UserImg">
+                        <img th:if="${session.user.gender == 0}" src="../../../static/images/yun/people.png"/>
+                        <img th:if="${session.user.gender == 1}" src="../../../static/images/yun/boy.jpg"/>
+                        <div class="UserName" th:text="${session.user.realName}"></div>
+                    </div>
+                    <button class="closeUser" onclick="SSOSystem.exit();">退出</button>
+                </div>
+            </div>
+        </header>
+        <div class="container">
+            <div class="center">
+                <aside class="aside">
+                    <dl class="menu_title" th:each="firstMenu : ${session.firstMenuList}">
+                        <input name="class_style" type="hidden" th:value="${firstMenu.className}"/>
+                        <dt th:text="${firstMenu.resName}">
+                        </dt>
+                        <dd th:each="resource : ${session.resourceList}" th:if="${firstMenu.id == resource.parentId}">
+                            <input name="id_style" type="hidden" th:value="${resource.idName}"/>
+                            <a th:href="@{${resource.resUrl}}" th:text="${resource.resName}"></a>
+                        </dd>
+                    </dl>
+
+                    <!--<dl class="menu_title">
+                        <dt class="d1">用户管理</dt>
+                        <dd><a href="/page/sso/userList/1,10,0,0,0,0,0.html" id="user_list">用户列表</a></dd>
+                        <dd><a href="/page/sso/newUser.html" id="new_user">新增用户</a></dd>
+                    </dl>
+                    <dl class="menu_title">
+                        <dt class="d2">第三方平台管理</dt>
+                        <dd><a href="/page/sso/platformList/1,10.html" id="platform_list">平台列表</a></dd>
+                        <dd><a href="/page/sso/platformFilterList/1,10.html" id="platformfilter_list">导入数据过滤列表</a></dd>
+                    </dl>
+                    <dl class="menu_title">
+                        <dt class="d3">客服管理</dt>
+                        <dd><a href="/page/sso/serviceList.html" id="service_list">客服员列表</a></dd>
+                        <dd><a href="/page/sso/newService.html" id="new_service">新增客服</a></dd>
+                        <dd><a href="/page/sso/oneManage.html" id="one_manage">一次客服管理</a></dd>
+                        <dd><a href="/page/sso/twoManage.html" id="two_manage">二次客服管理</a></dd>
+                    </dl>
+                    <dl class="menu_title">
+                        <dt class="d4">织机构管理</dt>
+                        <dd><a href="/page/sso/tissueList/1,10,s,0,0.html" id="tissue_list">组织机构列表</a></dd>
+                        <dd><a href="/page/sso/newTissue.html" id="new_tissue">新增组织机构</a></dd>
+                        <dd><a href="/page/sso/invitationManage/1,10,0,0,0,0.html" id="invitation_manage">邀请码管理</a></dd>
+                        <dd><a href="/page/sso/newInvitation.html" id="new_invitation">新增邀请码</a></dd>
+                    </dl>
+                    <dl class="menu_title">
+                        <dt class="d5">管理员管理</dt>
+                        <dd><a href="/page/sso/adminList.html" id="admin_list">管理员列表</a></dd>
+                        <dd><a href="/page/sso/newAdmin.html" id="new_admin">新增管理员</a></dd>
+                    </dl>
+                    <dl class="menu_title">
+                        <dt class="d6">站点管理</dt>
+                        <dd><a href="/page/sso/siteBasic.html" id="site_basic">站点基本设置</a></dd>
+                        <dd><a href="/email/emailPort.html" id="email_port">邮件接口设置</a></dd>
+                        <dd><a href="/sms/messPort.html" id="mess_port">短信接口设置</a></dd>
+                        <dd><a href="/page/sso/siteLog.html" id="site_log">站点日志</a></dd>
+                    </dl>-->
+                </aside>
+                <section class="section">
+                    <div id="content" layout:fragment="content"></div>
+                </section>
+            </div>
+
+            <script type="text/javascript" th:src="@{/static/scripts/backstage/backstage.js}" src="/static/scripts/backstage/backstage.js"></script>
+        </div>
+        <footer class="footer">
+            <div class="center">
+                <div class="foot-size">客服电话：400-880-5056        客服邮箱：Help@hsjc.com.cn</div>
+                <div class="foot-size">共筑教育云平台 ,创建教育新模式</div>
+                <div class="foot-size">Copyright ©华师京城网络科技股份有限公司  沪IC备10208270号-3</div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hsjc.ssoCenter.core.mapper.UserTempMapper" >
+  <resultMap id="BaseResultMap" type="UserTemp" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userName" property="userName" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="CHAR" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="inviteCode" property="inviteCode" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="organizationCode" property="organizationCode" jdbcType="INTEGER" />
+    <result column="realName" property="realName" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, userName, password, salt, phone, type, status, inviteCode, email,organizationCode,realName,gender
+  </sql>
+
+  <!--
+    @author : zga
+    @date : 2015-12-04
+    新增单个用户
+  -->
+  <insert id="insert" parameterType="UserTemp">
+    insert into tbusertemp
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userName != null" >
+        userName,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="salt != null" >
+        salt,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="realName != null" >
+        realName,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+    </trim>
+
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userName != null" >
+        #{userName},
+      </if>
+      <if test="password != null" >
+        #{password},
+      </if>
+      <if test="salt != null" >
+        #{salt},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+      <if test="email != null" >
+        #{email},
+      </if>
+      <if test="realName != null" >
+        #{realName},
+      </if>
+      <if test="gender != null" >
+        #{gender},
+      </if>
+    </trim>
+  </insert>
+
+  <!--
+    @author : zga
+    @date : 2015-12-04
+    新增多个用户
+  -->
+  <insert id="insertSelective" parameterType="UserTemp" >
+    insert into tbusertemp
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userName != null" >
+        userName,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="salt != null" >
+        salt,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="inviteCode != null" >
+        inviteCode,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="userName != null" >
+        #{userName},
+      </if>
+      <if test="password != null" >
+        #{password},
+      </if>
+      <if test="salt != null" >
+        #{salt},
+      </if>
+      <if test="phone != null" >
+        #{phone},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="inviteCode != null" >
+        #{inviteCode},
+      </if>
+      <if test="email != null" >
+        #{email},
+      </if>
+    </trim>
+  </insert>
+
+  <!--
+    @author : zga
+    @date : 2015-12-04
+    通过id删除用户
+  -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tbusertemp
+    where id = #{id}
+  </delete>
+
+  <!--
+    @author : zga
+    @date : 2015-12-04
+    根据id更新用户信息
+  -->
+  <update id="updateByPrimaryKeySelective" parameterType="UserTemp">
+    update tbusertemp
+    <set >
+      <if test="userName != null" >
+        userName = #{userName},
+      </if>
+      <if test="password != null" >
+        password = #{password},
+      </if>
+      <if test="salt != null" >
+        salt = #{salt},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone},
+      </if>
+      <if test="type != null" >
+        type = #{type},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+      <if test="inviteCode != null" >
+        inviteCode = #{inviteCode},
+      </if>
+      <if test="email != null" >
+        email = #{email},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+  <!--
+    @author : zga
+    @date : 2015-12-04
+    根据email更新用户状态
+  -->
+  <update id="updateStatusByEmial" parameterType="UserTemp">
+    update tbusertemp
+    <set>
+      <if test="status != null">
+        status = #{status}
+      </if>
+    </set>
+    where email = #{email}
+  </update>
+
+  <!--
+    @author : zga
+    @date : 2015-12-22
+    根据email更新用户组织机构
+  -->
+  <update id="updateOrganizationCodeByEmail" parameterType="UserTemp">
+    UPDATE tbusertemp
+    <set>
+      <if test="organizationCode != null">
+        organizationCode = #{organizationCode}
+      </if>
+    </set>
+    where email = #{email}
+  </update>
+
+  <!--
+    @author : zga
+    @date : 2015-12-04
+    更新用户信息
+  -->
+  <update id="updateByPrimaryKey" parameterType="UserTemp" >
+    update tbusertemp
+    set userName = #{userName},
+    password = #{password},
+    salt = #{salt},
+    phone = #{phone},
+    type = #{type},
+    status = #{status},
+    inviteCode = #{inviteCode},
+    email = #{email}
+    where id = #{id}
+  </update>
+
+  <!--
+    @author : zga
+    @date : 2015-12-04
+    根据id查询用户信息
+  -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from tbusertemp
+    where id = #{id}
+  </select>
+
+  <!--
+    @author : zga
+    @date : 2015-12-04
+    根据userName、phone、email查询用户
+  -->
+  <select id="selectByEmailOrUserNameOrPhone" resultType="UserTemp" parameterType="UserTemp">
+    select
+    <include refid="Base_Column_List" />
+    from tbusertemp
+    <where>
+      <if test="email != null" >
+        email = #{email}
+      </if>
+      <if test="phone != null" >
+        phone = #{phone}
+      </if>
+      <if test="userName != null" >
+        userName = #{userName}
+      </if>
+    </where>
+    limit 1
+  </select>
+</mapper>

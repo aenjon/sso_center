@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hsjc.ssoCenter.core.mapper.UserStudentMapper">
+  <resultMap id="BaseResultMap" type="com.hsjc.ssoCenter.core.domain.UserStudent">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="userId" jdbcType="INTEGER" property="userId" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, userId
+  </sql>
+
+  <!--
+    @author : zga
+    @date : 2015-12-04
+    新增学生
+  -->
+  <insert id="insert" parameterType="com.hsjc.ssoCenter.core.domain.UserStudent">
+    insert into tbuserstudent (userId)
+    values (#{userId})
+  </insert>
+
+  <!--
+    @author : zga
+    @date : 2015-12-04
+    新增学生
+  -->
+  <insert id="insertSelective" parameterType="com.hsjc.ssoCenter.core.domain.UserStudent">
+    insert into tbuserstudent
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        userId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="userId != null">
+        #{userId},
+      </if>
+    </trim>
+  </insert>
+
+  <!--
+    @author : zga
+    @date : 2015-12-04
+    根据Id删除学生
+  -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbuserstudent
+    where id = #{id}
+  </delete>
+
+  <!--
+    @author : zga
+    @date : 2015-12-04
+    根据Id更新学生
+  -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.hsjc.ssoCenter.core.domain.UserStudent">
+    update tbuserstudent
+    <set>
+      <if test="userId != null">
+        userId = #{userId},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+  <!--
+    @author : zga
+    @date : 2015-12-04
+    根据Id更新学生
+  -->
+  <update id="updateByPrimaryKey" parameterType="com.hsjc.ssoCenter.core.domain.UserStudent">
+    update tbuserstudent
+    set userId = #{userId}
+    where id = #{id}
+  </update>
+
+  <!--
+    @author : zga
+    @date : 2015-12-04
+    根据Id查询学生
+  -->
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbuserstudent
+    where id = #{id}
+  </select>
+</mapper>

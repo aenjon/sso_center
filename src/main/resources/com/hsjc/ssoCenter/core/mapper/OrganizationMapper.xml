@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hsjc.ssoCenter.core.mapper.OrganizationMapper" >
+  <resultMap id="BaseResultMap" type="com.hsjc.ssoCenter.core.domain.Organization" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="organizationCode" property="organizationCode" jdbcType="INTEGER" />
+    <result column="organizationName" property="organizationName" jdbcType="VARCHAR" />
+    <result column="parentId" property="parentId" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="isDelete" property="isDelete" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, organizationCode, organizationName, parentId, status, createTime, isDelete
+  </sql>
+
+  <!--
+   @author : zga
+   @date : 2015-12-04
+   新增
+  -->
+  <insert id="insert" parameterType="Organization" >
+    insert into tborganization (id, organizationCode, organizationName,
+      parentId, status, createTime, 
+      isDelete)
+    values (#{id}, #{organizationCode}, #{organizationName},
+      #{parentId}, #{status}, #{createTime}, 
+      #{isDelete})
+  </insert>
+
+  <insert id="insertSelective" parameterType="Organization" >
+    insert into tborganization
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="organizationCode != null" >
+        organizationCode,
+      </if>
+      <if test="organizationName != null" >
+        organizationName,
+      </if>
+      <if test="parentId != null" >
+        parentId,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+      <if test="isDelete != null" >
+        isDelete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="organizationCode != null" >
+        #{organizationCode},
+      </if>
+      <if test="organizationName != null" >
+        #{organizationName},
+      </if>
+      <if test="parentId != null" >
+        #{parentId},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="createTime != null" >
+        #{createTime},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tborganization
+    where id = #{id}
+  </delete>
+
+  <!--
+    @author : zga
+    @date : 2016-3-11
+    更新用户
+  -->
+  <update id="updateByPrimaryKeySelective" parameterType="Organization" >
+    update tborganization
+    <set >
+      <if test="organizationCode != null" >
+        organizationCode = #{organizationCode},
+      </if>
+      <if test="organizationName != null" >
+        organizationName = #{organizationName},
+      </if>
+      <if test="parentId != null" >
+        parentId = #{parentId},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime},
+      </if>
+      <if test="isDelete != null" >
+        isDelete = #{isDelete},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="Organization" >
+    update tborganization
+    set organizationCode = #{organizationCode},
+      organizationName = #{organizationName},
+      parentId = #{parentId},
+      status = #{status},
+      createTime = #{createTime},
+      isDelete = #{isDelete}
+    where id = #{id}
+  </update>
+
+  <!--
+    @author : zga
+    @date : 2016-3-11
+    删除组织机构(更新状态为0>删除,isDelete:1>删除)
+  -->
+  <update id="adminUpdateStatus" parameterType="Organization">
+    UPDATE tborganization
+    SET status = '0',isDelete = '1'
+    WHERE id = #{id}
+  </update>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from tborganization
+    where id = #{id}
+  </select>
+
+  <!--
+    @author : zga
+    @date : 2016-1-28
+    查询所有的组织机构
+  -->
+  <select id="selectAllOrganization" resultType="Organization">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM tborganization
+  </select>
+
+  <!--
+    @author : zga
+    @date : 2016-3-11
+    查询所有的组织机构
+  -->
+  <select id="selectAllOrganizationWithPage" resultType="java.util.HashMap">
+    SELECT
+    id,
+    organizationCode,
+    organizationName,
+    parentId,
+    status,
+    (DATE_FORMAT(createTime,'%Y-%m-%d')) AS createTime,
+    isDelete
+    FROM tborganization
+    <where>
+      <if test="status != null">
+        status = #{status}
+      </if>
+
+      <if test="organizationName != null">
+        AND organizationName LIKE  CONCAT('%','${organizationName}','%')
+      </if>
+
+      <if test="createTime == 3">
+        AND DATE_SUB(CURDATE(), INTERVAL 2 DAY) <![CDATA[<=]]> DATE(createTime)
+      </if>
+      <if test="createTime == 7">
+        AND DATE_SUB(CURDATE(), INTERVAL 6 DAY) <![CDATA[<=]]> DATE(createTime)
+      </if>
+      <if test="createTime == 30">
+        AND DATE_SUB(CURDATE(), INTERVAL 29 DAY) <![CDATA[<=]]> DATE(createTime)
+      </if>
+    </where>
+
+    ORDER BY createTime DESC
+  </select>
+
+  <select id="selectMaxOrganizationCode" resultType="java.lang.Integer">
+    SELECT MAX(organizationCode) FROM tborganization
+  </select>
+
+
+  <!-- 根据组织机构名称查询组织机构Code-->
+  <select id="selectOrganizationCode" resultType="java.lang.Integer">
+    SELECT organizationCode FROM tborganization WHERE organizationName=#{organizationName}
+  </select>
+</mapper>

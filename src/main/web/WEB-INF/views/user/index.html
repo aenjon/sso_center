@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="../../public/yun">
+    <head></head>
+    <body>
+        <div class="container" layout:fragment="service">
+            <div class="register_nav">
+                <nav>
+                    <a th:each="resource : ${resourceList}">
+                        <input type="hidden" th:value="${resource.resType}" name="resType"/>
+                        <input type="hidden" th:value="${resource.resUrl}" name="resUrl"/>
+                        <input type="hidden" th:value="${resource.clientId}" name="clientId"/>
+                        <input type="hidden" th:value="${resource.ssoPassword}" name="ssoPassword"/>
+                        <img th:src="@{${resource.resPath}}"/>
+                    </a>
+                </nav>
+            </div>
+            <script type="text/javascript" th:src="@{/static/scripts/index.js}" src="/static/scripts/index.js"></script>
+        </div>
+    </body>
+</html>

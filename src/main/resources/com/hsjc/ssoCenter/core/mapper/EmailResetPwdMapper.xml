@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hsjc.ssoCenter.core.mapper.EmailResetPwdMapper">
+  <resultMap id="BaseResultMap" type="com.hsjc.ssoCenter.core.domain.EmailResetPwd">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="email" jdbcType="BIGINT" property="email" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="useTime" jdbcType="TIMESTAMP" property="useTime" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="state" jdbcType="CHAR" property="state" />
+    <result column="validSeconds" jdbcType="INTEGER" property="validSeconds" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, email, createTime, useTime, code, state, validSeconds
+  </sql>
+
+  <!--
+    @author : zga
+    @date : 2015-12-04
+    新增
+  -->
+  <insert id="insert" parameterType="com.hsjc.ssoCenter.core.domain.EmailResetPwd">
+    insert into tbemailresetpwd (email, createTime,
+      code, state,
+      validSeconds)
+    values (#{email},#{createTime},
+      #{code}, #{state},
+      #{validSeconds})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.hsjc.ssoCenter.core.domain.EmailResetPwd">
+    insert into tbemailresetpwd
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="useTime != null">
+        useTime,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="validSeconds != null">
+        validSeconds,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="email != null">
+        #{email},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="useTime != null">
+        #{useTime},
+      </if>
+      <if test="code != null">
+        #{code},
+      </if>
+      <if test="state != null">
+        #{state},
+      </if>
+      <if test="validSeconds != null">
+        #{validSeconds},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbemailresetpwd
+    where id = #{id}
+  </delete>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.hsjc.ssoCenter.core.domain.EmailResetPwd">
+    update tbemailresetpwd
+    <set>
+      <if test="email != null">
+        email = #{email},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime},
+      </if>
+      <if test="useTime != null">
+        useTime = #{useTime},
+      </if>
+      <if test="code != null">
+        code = #{code},
+      </if>
+      <if test="state != null">
+        state = #{state},
+      </if>
+      <if test="validSeconds != null">
+        validSeconds = #{validSeconds},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.hsjc.ssoCenter.core.domain.EmailResetPwd">
+    update tbemailresetpwd
+    set email = #{email},
+      createTime = #{createTime},
+      useTime = #{useTime},
+      code = #{code},
+      state = #{state},
+      validSeconds = #{validSeconds}
+    where id = #{id}
+  </update>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbemailresetpwd
+    where id = #{id}
+    limit 1
+  </select>
+
+  <select id="selectByEmail" resultType="EmailResetPwd">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from tbemailresetpwd
+    <where>
+      <if test="email != null">
+        email = #{email}
+      </if>
+    </where>
+    limit 1
+  </select>
+</mapper>

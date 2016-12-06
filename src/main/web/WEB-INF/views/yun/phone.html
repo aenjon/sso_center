@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="../../public/yun">
+    <head>
+        <style type="text/css">
+            .Validform_wrong{margin-left:-50px;margin-top:-2px;}
+            .Validform_checktip{margin-left:-50px;margin-top:-2px;}
+        </style>
+    </head>
+    <body>
+        <div id="content" layout:fragment="content">
+           <div class="password_box">
+               <form class="phoneForm" action="/sso/bindPhone.json" method="post">
+                   <div class="phone_label">
+                       <div class="phone_font">手机号</div>
+                       <input type="text"  id="phone_input" name="phone"/>
+                       <input type="button" class="get_phone" value="免费获取验证码"/>
+                   </div>
+                   <div class="phone_strong">用于接收来自平台的通知和找回密码，非常重要!</div>
+                   <div class="phone_label">
+                       <div class="phone_font">验证码</div>
+                       <input type="text" id="code" name="code"/>
+                       <div class="second"><!--180秒后可重新获取--></div>
+                   </div>
+                   <input type="submit" value="确定" class="phone_submit"/>
+               </form>
+           </div>
+
+           <script type="text/javascript" th:src="@{/static/scripts/yun/phone.js}" src="/static/scripts/yun/phone.js"></script>
+        </div>
+    </body>
+</html>

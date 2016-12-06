@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hsjc.ssoCenter.core.mapper.SystemLogMapper" >
+  <resultMap id="BaseResultMap" type="com.hsjc.ssoCenter.core.domain.SystemLog" >
+    <id column="sysLogId" property="sysLogId" jdbcType="BIGINT" />
+    <result column="userId" property="userId" jdbcType="VARCHAR" />
+    <result column="loginTime" property="loginTime" jdbcType="TIMESTAMP" />
+    <result column="loginType" property="loginType" jdbcType="VARCHAR" />
+    <result column="loginIp" property="loginIp" jdbcType="VARCHAR" />
+    <result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    sysLogId, userId, loginTime, loginType, loginIp, createDate
+  </sql>
+
+  <!--
+   @author : zga
+   @date : 2015-12-04
+   新增
+  -->
+  <insert id="insert" parameterType="com.hsjc.ssoCenter.core.domain.SystemLog" >
+    insert into tbsystemlog (userId, loginTime,
+      loginType, loginIp, createDate
+      )
+    values (#{userId}, #{loginTime},
+      #{loginType}, #{loginIp}, #{createDate}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.hsjc.ssoCenter.core.domain.SystemLog" >
+    insert into tbsystemlog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sysLogId != null" >
+        sysLogId,
+      </if>
+      <if test="userId != null" >
+        userId,
+      </if>
+      <if test="loginTime != null" >
+        loginTime,
+      </if>
+      <if test="loginType != null" >
+        loginType,
+      </if>
+      <if test="loginIp != null" >
+        loginIp,
+      </if>
+      <if test="createDate != null" >
+        createDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sysLogId != null" >
+        #{sysLogId},
+      </if>
+      <if test="userId != null" >
+        #{userId},
+      </if>
+      <if test="loginTime != null" >
+        #{loginTime},
+      </if>
+      <if test="loginType != null" >
+        #{loginType},
+      </if>
+      <if test="loginIp != null" >
+        #{loginIp},
+      </if>
+      <if test="createDate != null" >
+        #{createDate},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbsystemlog
+    where sysLogId = #{sysLogId}
+  </delete>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.hsjc.ssoCenter.core.domain.SystemLog" >
+    update tbsystemlog
+    <set >
+      <if test="userId != null" >
+        userId = #{userId},
+      </if>
+      <if test="loginTime != null" >
+        loginTime = #{loginTime},
+      </if>
+      <if test="loginType != null" >
+        loginType = #{loginType},
+      </if>
+      <if test="loginIp != null" >
+        loginIp = #{loginIp},
+      </if>
+      <if test="createDate != null" >
+        createDate = #{createDate},
+      </if>
+    </set>
+    where sysLogId = #{sysLogId}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hsjc.ssoCenter.core.domain.SystemLog" >
+    update tbsystemlog
+    set userId = #{userId},
+      loginTime = #{loginTime},
+      loginType = #{loginType},
+      loginIp = #{loginIp},
+      createDate = #{createDate}
+    where sysLogId = #{sysLogId}
+  </update>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from tbsystemlog
+    where sysLogId = #{sysLogId}
+  </select>
+</mapper>
+

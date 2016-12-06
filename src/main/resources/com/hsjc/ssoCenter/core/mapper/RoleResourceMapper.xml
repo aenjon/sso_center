@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hsjc.ssoCenter.core.mapper.RoleResourceMapper" >
+  <resultMap id="BaseResultMap" type="com.hsjc.ssoCenter.core.domain.RoleResource" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="roleId" property="roleId" jdbcType="BIGINT" />
+    <result column="resourceId" property="resourceId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, roleId, resourceId
+  </sql>
+
+  <insert id="insert" parameterType="RoleResource">
+    insert into tbroleresource
+    (roleId,
+    resourceId)
+    values (
+    #{roleId},
+    #{resourceId})
+  </insert>
+
+  <insert id="insertSelective" parameterType="RoleResource">
+    insert into tbroleresource
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="roleId != null" >
+        roleId,
+      </if>
+      <if test="resourceId != null" >
+        resourceId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="roleId != null" >
+        #{roleId},
+      </if>
+      <if test="resourceId != null" >
+        #{resourceId},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbroleresource
+    where id = #{id}
+  </delete>
+
+  <update id="updateByPrimaryKeySelective" parameterType="RoleResource" >
+    update tbroleresource
+    <set >
+      <if test="roleId != null" >
+        roleId = #{roleId},
+      </if>
+      <if test="resourceId != null" >
+        resourceId = #{resourceId},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="RoleResource" >
+    update tbroleresource
+    set roleId = #{roleId},
+      resourceId = #{resourceId}
+    where id = #{id}
+  </update>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from tbroleresource
+    where id = #{id}
+  </select>
+</mapper>

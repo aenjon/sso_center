@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="../../public/backstage">
+    <head>
+    </head>
+    <body>
+        <div id="content" layout:fragment="content">
+            <div class="index_title">邀请码管理</div>
+
+            <div class="tab_search">
+                <select name="organization" class="queryCondition">
+                    <option value="0" th:if="${organization == '0'}" selected="selected">所属机构</option>
+                    <option value="0" th:unless="${organization == '0'}">所属机构</option>
+
+                    <option th:each="org : ${organizationList}" th:value="${org.organizationCode}"
+                            th:text="${org.organizationName}" th:if="${organization} == ${org.organizationCode}" selected="selected"></option>
+
+                    <option th:each="org : ${organizationList}" th:value="${org.organizationCode}"
+                            th:text="${org.organizationName}" th:unless="${organization} == ${org.organizationCode}"></option>
+                </select>
+                <select name="status" class="queryCondition">
+                    <option value="0" th:if="${status == '0'}" selected="selected">邀请码状态</option>
+                    <option value="0" th:unless="${status == '0'}">邀请码状态</option>
+
+                    <option value="1" th:if="${status == '1'}" selected="selected">已使用</option>
+                    <option value="1" th:unless="${status == '1'}">已使用</option>
+
+                    <option value="2" th:if="${status == '2'}" selected="selected">未使用</option>
+                    <option value="2" th:unless="${status == '2'}">未使用</option>
+                </select>
+
+                <select name="createTime" class="queryCondition">
+                    <option value="0" th:if="${createTime == '0'}" selected="selected">时间</option>
+                    <option value="0" th:unless="${createTime == '0'}">时间</option>
+
+                    <option value="3" th:if="${createTime == '3'}" selected="selected">近三天来</option>
+                    <option value="3" th:unless="${createTime == '3'}">近三天来</option>
+
+                    <option value="7" th:if="${createTime == '7'}" selected="selected">近一周来</option>
+                    <option value="7" th:unless="${createTime == '7'}">近一周来</option>
+
+                    <option value="30" th:if="${createTime == '30'}" selected="selected">近一月来</option>
+                    <option value="30" th:unless="${createTime == '30'}">近一月来</option>
+                </select>
+                <div class="tab_fn">
+                    <input type="button" value="查询" class="tab_fnLi"/>
+                </div>
+                <input type="search" name="inviteCode" th:if="${inviteCode == '0'}" placeholder="邀请码…"/>
+                <input type="search" name="inviteCode" th:unless="${inviteCode == '0'}" th:value="${inviteCode}" placeholder="邀请码…"/>
+            </div>
+
+            <table class="invitation_manage_tab">
+                <thead>
+                    <tr>
+                        <th>学校</th>
+                        <th>邀请码</th>
+                        <th>使用者</th>
+                        <th>状态</th>
+                        <th>添加时间</th>
+                        <th>使用时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="schoolInvite : ${schoolInviteList}">
+                        <td th:text="${schoolInvite.organizationName}"></td>
+                        <td th:text="${schoolInvite.inviteCode}"></td>
+                        <td th:if="${schoolInvite.realName != 'xxx'}" th:text="${schoolInvite.realName}"></td>
+                        <td th:if="${schoolInvite.realName == 'xxx'}"></td>
+                        <td th:if="${schoolInvite.state == 'used'}">已使用</td>
+                        <td th:if="${schoolInvite.state == 'unused'}">未使用</td>
+                        <td th:text="${schoolInvite.createTime}"></td>
+                        <td th:if="${schoolInvite.useTime != 'xxx'}" th:text="${schoolInvite.useTime}"></td>
+                        <td th:if="${schoolInvite.useTime == 'xxx'}"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tab_foot">
+                <ul class="handle">
+                    <li class="export_result">导出结果</li>
+                </ul>
+                <div class="pages">
+                    <div class="jil">共<font th:text="${total}"></font>条记录</div>
+                    <a th:href="@{'/page/sso/invitationManage/1,' + ${pageSize} + ',' + ${organization} + ',' + ${status} + ',' + ${createTime} + ',' + ${inviteCode} +'.html'}" class="page">首页</a>
+
+                    <a th:if="${hasPrevioisPage == true}"
+                       th:href="@{'/page/sso/invitationManage/' + ${prePage} + ',' + ${pageSize} + ',' + ${organization} + ',' + ${status} + ',' + ${createTime} + ',' + ${inviteCode} + '.html'}" class="page">上一页</a>
+
+                    <a th:each="pageN : ${navigatepageNums}"
+                       th:href="@{'/page/sso/invitationManage/' + ${pageN} + ',' + ${pageSize} + ',' + ${organization} + ',' + ${status} + ',' + ${createTime} + ',' + ${inviteCode} + '.html'}" th:text="${pageN}" class="page"></a>
+
+                    <a th:if="${hastNextPage == true}"
+                       th:href="@{'/page/sso/invitationManage/' + ${nextPage} + ',' + ${pageSize} + ',' + ${organization} + ',' + ${status} + ',' + ${createTime} + ',' + ${inviteCode} + '.html'}" class="page">下一页</a>
+
+                    <a th:href="@{'/page/sso/invitationManage/' + ${pages} + ',' + ${pageSize} + ',' + ${organization} + ',' + ${status} + ',' + ${createTime} + ',' + ${inviteCode} + '.html'}" class="page">尾页</a>
+                </div>
+            </div>
+
+            <script type="text/javascript" th:src="@{/static/scripts/backstage/inviteCodeList.js}" src="/static/scripts/backstage/inviteCodeList.js"></script>
+        </div>
+    </body>
+</html>

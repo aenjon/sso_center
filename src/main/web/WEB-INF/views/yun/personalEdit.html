@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="../../public/yun">
+    <head></head>
+    <body>
+        <div id="content1" layout:fragment="content">
+            <form action="/sso/modifyPersonalInfo.html" method="post" enctype="multipart/form-data">
+                <div class="message">
+                   <div class="message_l">云账号：</div>
+                </div>
+                <div class="message">
+                   <div class="message_l">用户名：</div>
+                   <div th:text="${session.user.userName}"></div>
+                </div>
+                <div class="message">
+                   <div class="message_l">邮箱：</div>
+                   <div th:text="${session.user.email}"></div>
+                </div>
+                <div class="message">
+                   <div class="message_l">手机： </div>
+                    <div th:text="${session.user.phone}"></div>
+                </div>
+                <div class="message">
+                   <div class="message_l">邀请码：</div>
+                   <div th:text="${session.user.inviteCode}"></div>
+                </div>
+                <div class="message">
+                   <div class="message_l" style="line-height: 100px;">头像：</div>
+                   <div class="up-img">
+                       <img th:src="@{${session.user.userIcon}}" th:if="${session.user.userIcon} != null" width="100px" height="100px"  class="viewInfo"/>
+                       <input type="file" name="imgFile"/>
+                   </div>
+                   <div class="head_img_strong">(支持JPG/PNG/BMP格式的图片,建议文件小于20M,尺寸100×100(像素)</div>
+               </div>
+               <div class="message">
+                   <div class="message_l">姓名：</div>
+                   <input type="text" name="realName" th:value="${session.user.realName}" class="message_rr"/>
+               </div>
+               <div class="message">
+                   <div class="message_l">性别：</div>
+                   <ul class="sex modifyInfo">
+                       <li th:if="${session.user.gender} == 1" class="selected">
+                           <input type="radio" name="gender" value="1" checked="checked"/>男
+                       </li>
+                       <li th:if="${session.user.gender} == 1">
+                           <input type="radio" name="gender" value="0"/>女
+                       </li>
+
+                       <li th:if="${session.user.gender} == 0">
+                           <input type="radio" name="gender" value="1"/>男
+                       </li>
+                       <li th:if="${session.user.gender} == 0" class="selected">
+                           <input type="radio" name="gender" value="0" checked="checked"/>女
+                       </li>
+                   </ul>
+               </div>
+               <!--<div class="message" style="overflow: visible">
+                   <div class="message_l">证件号：</div>
+                   <dl class="select">
+                       <dt>证件类型</dt>
+                       <dd>
+                           <ul>
+                               <li>证件类型</li>
+                               <li>二代身份证</li>
+                               <li>港澳通行证</li>
+                           </ul>
+                       </dd>
+                   </dl>
+                   <input type="text" class="papers" />
+               </div>
+               <div class="message" style="margin-top:50px;">
+                   <div class="message_l">个人介绍：</div>
+                   <div class="message_text" contentEditable="true"></div>
+               </div>-->
+               <div class="inputSubnmit">
+                   <!--<textarea class="peo_text"></textarea>-->
+                   <!--<input type="button" value="修改" name="modifyInfo" class="message_submit"/>-->
+
+                   <input type="button" class="resetR" value="取 消"/>
+                   <input type="submit" class="submitL" value="保 存"/>
+               </div>
+           </form>
+
+           <script type="text/javascript" th:src="@{/static/scripts/yun/personalEdit.js}" src="/static/scripts/yun/personalEdit.js"></script>
+        </div>
+    </body>
+</html>

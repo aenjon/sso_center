@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hsjc.ssoCenter.core.mapper.SynMapper" >
+  <resultMap id="BaseResultMap" type="com.hsjc.ssoCenter.core.domain.Organization" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="organizationCode" property="organizationCode" jdbcType="INTEGER" />
+    <result column="organizationName" property="organizationName" jdbcType="VARCHAR" />
+    <result column="parentId" property="parentId" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="isDelete" property="isDelete" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, organizationCode, organizationName, parentId, status, createTime, isDelete
+  </sql>
+
+  <!--
+   @author : zga
+   @date : 2015-12-04
+   新增
+  -->
+  <insert id="insert" parameterType="com.hsjc.ssoCenter.core.domain.Organization" >
+    insert into tborganization (id, organizationCode, organizationName,
+      parentId, status, createTime, 
+      isDelete)
+    values (#{id}, #{organizationCode}, #{organizationName},
+      #{parentId}, #{status}, #{createTime}, 
+      #{isDelete})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.hsjc.ssoCenter.core.domain.Organization" >
+    insert into tborganization
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="organizationCode != null" >
+        organizationCode,
+      </if>
+      <if test="organizationName != null" >
+        organizationName,
+      </if>
+      <if test="parentId != null" >
+        parentId,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+      <if test="isDelete != null" >
+        isDelete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="organizationCode != null" >
+        #{organizationCode},
+      </if>
+      <if test="organizationName != null" >
+        #{organizationName},
+      </if>
+      <if test="parentId != null" >
+        #{parentId},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="createTime != null" >
+        #{createTime},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tborganization
+    where id = #{id}
+  </delete>
+
+  <!--
+    @author : zga
+    @date : 2016-1-21
+    删除同步完成的用户数据
+  -->
+  <delete id="deleteFinishSynUserByUserId">
+    DELETE from tbsynuser${briefName}
+    where userId = #{userId}
+  </delete>
+
+  <!--
+    @author : zga
+    @date : 2016-1-21
+    删除同步完成的组织机构数据
+  -->
+  <delete id="deleteFinishSynOrganizationByOrganizationCode">
+    DELETE from tbsynorganization${briefName}
+    where organizationCode = #{organizationCode}
+  </delete>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.hsjc.ssoCenter.core.domain.Organization" >
+    update tborganization
+    <set >
+      <if test="organizationCode != null" >
+        organizationCode = #{organizationCode},
+      </if>
+      <if test="organizationName != null" >
+        organizationName = #{organizationName},
+      </if>
+      <if test="parentId != null" >
+        parentId = #{parentId},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime},
+      </if>
+      <if test="isDelete != null" >
+        isDelete = #{isDelete},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.hsjc.ssoCenter.core.domain.Organization" >
+    update tborganization
+    set organizationCode = #{organizationCode},
+      organizationName = #{organizationName},
+      parentId = #{parentId},
+      status = #{status},
+      createTime = #{createTime},
+      isDelete = #{isDelete}
+    where id = #{id}
+  </update>
+
+  <!--
+    @author : zga
+    @date : 2015-12-14
+    查询增量组织机构
+  -->
+  <select id="selectDifferentOrganization" resultType="java.util.HashMap">
+   SELECT
+    tbo.organizationCode,tbo.organizationName,tbo.parentId
+   FROM tborganization tbo RIGHT JOIN tbsynorganization${briefName} tbso
+   on tbso.organizationCode = tbo.organizationCode
+  </select>
+
+  <!--
+    @author : zga
+    @date : 2015-12-14
+    查询增量用户
+  -->
+  <select id="selectDifferentUser" resultType="java.util.HashMap">
+    SELECT
+     tbu.realName,tbu.organizationCode,tbu.id openId,tbu.TYPE role,tbu.gender,tbu.email,
+     (CASE WHEN tbu.type = 'teacher'
+      THEN tbu.teacherNum
+      WHEN tbu.type = 'student'
+      THEN tbu.studentNum
+      END) personNum
+     FROM tbusermain tbu RIGHT JOIN tbsynuser${briefName} tbsu
+     ON tbsu.userId = tbu.id
+  </select>
+
+  <!--
+    @author : zga
+    @date : 2015-12-21
+    查询所有的组织机构
+  -->
+  <select id="selectAllOrganization" resultType="java.util.HashMap">
+    SELECT DISTINCT
+      torg.organizationCode ,
+      torg.organizationName,
+      torg.parentId
+    FROM tborganization torg,tb3rdfilter tf
+    WHERE tf.trdClientId = #{trdClientId}
+    AND tf.organizationCode = torg.organizationCode
+  </select>
+
+  <!--
+    @author : zga
+    @date : 2015-12-22
+    查询组织机构总数目
+  -->
+  <select id="countAllOrganization" resultType="java.lang.Integer">
+    SELECT count(1) FROM (
+      SELECT DISTINCT
+      torg.organizationCode ,
+      torg.organizationName,
+      torg.parentId
+      FROM tborganization torg,tb3rdfilter tf
+      WHERE tf.trdClientId = #{trdClientId}
+      AND tf.organizationCode = torg.organizationCode
+    ) t
+  </select>
+
+  <!--
+    @author : zga
+    @date : 2015-12-21
+    查看所有的用户
+  -->
+  <select id="selectAllUser" resultType="java.util.HashMap">
+    SELECT tu.realName,tu.organizationCode,tu.id openId,tu.TYPE role,tu.gender,tu.email,
+	(CASE WHEN tu.type = 'teacher'
+	THEN tu.teacherNum
+	WHEN tu.type = 'student'
+	THEN tu.studentNum
+	END) personNum
+	FROM tbusermain tu,tb3rdfilter tf
+    WHERE
+    tf.trdClientId = #{trdClientId}
+    AND tf.organizationCode = tu.organizationCode
+    AND tf.tstudent = tu.type
+  </select>
+
+  <!--
+    @author : zga
+    @date : 2015-12-22
+    查看用户总数目
+  -->
+  <select id="countAllUser" resultType="java.lang.Integer">
+    SELECT count(1) FROM (
+      SELECT tu.realName,tu.organizationCode,tu.id openId,tu.TYPE role,tu.gender,tu.email,
+      (CASE WHEN tu.type = 'teacher'
+      THEN tu.teacherNum
+      WHEN tu.type = 'student'
+      THEN tu.studentNum
+      END) personNum
+      FROM tbusermain tu,tb3rdfilter tf
+      WHERE
+      tf.trdClientId = #{trdClientId}
+      AND tf.organizationCode = tu.organizationCode
+      AND tf.tstudent = tu.type
+    ) t
+  </select>
+</mapper>

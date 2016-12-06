@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	  layout:decorator="../../public/register">
+	<head>
+		<style type="text/css">
+			.progress_2{width:660px;}
+			.Validform_checktip{margin-left:-30px;float:left;}
+		</style>
+	</head>
+	<body>
+		<div class="container-fluid" layout:fragment="content">
+			<div class="center">
+				<form class="regForm" action="" method="post">
+					<div class="ipone">
+						<input type="hidden" th:value="${email}" name="email"/>
+
+						<div class="ipone_box">
+							<div class="ipone_box_l">手机号</div>
+							<input type="text" name="phone" class="ipone_num"/>
+							<input type="button" class="note" value="获取验证码"/>
+						</div>
+						<div class="ipone_box">
+							<div class="ipone_box_l">验证码</div>
+							<input type="text" name="" class="verify_code"/>
+							<time class="count"></time>
+						</div>
+						<div class="ipone_box_next">
+							<div class="ipone_next">下一步</div>
+							<div class="skip">跳过</div>
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<script text="text/javascript" th:src="@{/static/scripts/register/register4.js}" src="/static/scripts/register/register4.js"></script>
+		</div>
+	</body>
+</html>
+

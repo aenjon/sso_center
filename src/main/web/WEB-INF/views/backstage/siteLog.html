@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="../../public/backstage">
+    <head></head>
+    <body>
+        <div id="content" layout:fragment="content">
+            <div class="index_title">站点日志</div>
+
+            <div class="tab_search">
+                <div class="tab_fn">
+                    <input type="button" value="查询" class="tab_fnLi"/>
+                </div>
+                <input type="search" name="c_description" th:if="${c_description=='0'}" placeholder="输入第三方…"/>
+                <input type="search" name="c_description" th:unless="${c_description=='0'}" th:value="${c_description}" placeholder="输入第三方…"/>
+            </div>
+
+            <table class="site_tab">
+                <thead>
+                    <tr>
+                        <th>日志ID</th>
+                        <th>第三方</th>
+                        <th>日志类型</th>
+                        <th>同步数量</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr th:each="siteLog : ${siteLog}">
+                    <input type="hidden" name="id" th:value="${siteLog.restLogId}"/>
+                    <td th:text="${siteLog.restLogId}"></td>
+
+                    <td th:if="${siteLog.c_description != 'xxx'}" th:text="${siteLog.c_description}"></td>
+                    <td th:if="${siteLog.c_description == 'xxx'}"></td>
+
+                    <td th:if="${siteLog.l_description!='xxx'}" th:text="${siteLog.l_description}"></td>
+                    <td th:if="${siteLog.l_description =='xxx'}"></td>
+
+                    <td th:if="${siteLog.synCount!='xxx'}" th:text="${siteLog.synCount}"></td>
+                    <td th:if="${siteLog.synCount =='xxx'}"></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="tab_foot">
+                <div class="pages">
+                    <div class="jil">共<font th:text="${total}"></font>条记录</div>
+                    <a th:href="@{'/page/sso/siteLog/1,' + ${pageSize}+','+ ${c_description}+'.html'}" class="page">首页</a>
+
+                    <a th:if="${hasPrevioisPage == true}"
+                       th:href="@{'/page/sso/siteLog/' + ${prePage} + ',' + ${pageSize} + ','+ ${c_description}+'.html'}" class="page">上一页</a>
+
+                    <a th:each="pageN : ${navigatepageNums}"
+                       th:href="@{'/page/sso/siteLog/' + ${pageN} + ',' + ${pageSize} + ','+ ${c_description}+ '.html'}" th:text="${pageN}" class="page"></a>
+
+                    <a th:if="${hastNextPage == true}"
+                       th:href="@{'/page/sso/siteLog/' + ${nextPage} + ',' + ${pageSize} + ','+ ${c_description}+'.html'}" class="page">下一页</a>
+
+                    <a th:href="@{'/page/sso/siteLog/' + ${pages} + ',' + ${pageSize} + ','+ ${c_description}+'.html'}" class="page">尾页</a>
+                </div>
+            </div>
+
+            <script text="text/javascript" th:src="@{/static/scripts/WdatePicker.js}"  src="../../../static/scripts/WdatePicker.js"></script>
+            <script text="text/javascript" th:src="@{/static/scripts/backstage/siteLog.js}" src="/static/scripts/backstage/siteLog.js"></script>
+        </div>
+    </body>
+</html>

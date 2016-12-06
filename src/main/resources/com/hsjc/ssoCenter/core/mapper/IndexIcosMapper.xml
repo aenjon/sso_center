@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hsjc.ssoCenter.core.mapper.IndexIcosMapper" >
+  <resultMap id="BaseResultMap" type="com.hsjc.ssoCenter.core.domain.IndexIcos" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="icoName" property="icoName" jdbcType="VARCHAR" />
+    <result column="icoPath" property="icoPath" jdbcType="VARCHAR" />
+    <result column="accessUrl" property="accessUrl" jdbcType="VARCHAR" />
+    <result column="icoType" property="icoType" jdbcType="CHAR" />
+    <result column="icoDescription" property="icoDescription" jdbcType="VARCHAR" />
+    <result column="clientId" property="clientId" jdbcType="VARCHAR" />
+    <result column="ssoPassword" property="ssoPassword" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, icoName, icoPath, accessUrl, icoType, icoDescription,clientId,ssoPassword
+  </sql>
+
+  <!--
+   @author : zga
+   @date : 2016-01-07
+   新增
+  -->
+  <insert id="insert" parameterType="com.hsjc.ssoCenter.core.domain.IndexIcos" >
+    insert into tbindexicos (id, icoName, icoPath,
+    accessUrl, icoType, icoDescription
+    )
+    values (#{id}, #{icoName}, #{icoPath},
+    #{accessUrl}, #{icoType,jdbcType=CHAR}, #{icoDescription}
+    )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.hsjc.ssoCenter.core.domain.IndexIcos" >
+    insert into tbindexicos
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="icoName != null" >
+        icoName,
+      </if>
+      <if test="icoPath != null" >
+        icoPath,
+      </if>
+      <if test="accessUrl != null" >
+        accessUrl,
+      </if>
+      <if test="icoType != null" >
+        icoType,
+      </if>
+      <if test="icoDescription != null" >
+        icoDescription,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="icoName != null" >
+        #{icoName},
+      </if>
+      <if test="icoPath != null" >
+        #{icoPath},
+      </if>
+      <if test="accessUrl != null" >
+        #{accessUrl},
+      </if>
+      <if test="icoType != null" >
+        #{icoType,jdbcType=CHAR},
+      </if>
+      <if test="icoDescription != null" >
+        #{icoDescription},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tbindexicos
+    where id = #{id}
+  </delete>
+
+
+  <update id="updateByPrimaryKeySelective" parameterType="IndexIcos" >
+    update tbindexicos
+    <set >
+      <if test="icoName != null" >
+        icoName = #{icoName},
+      </if>
+      <if test="icoPath != null" >
+        icoPath = #{icoPath},
+      </if>
+      <if test="accessUrl != null" >
+        accessUrl = #{accessUrl},
+      </if>
+      <if test="icoType != null" >
+        icoType = #{icoType,jdbcType=CHAR},
+      </if>
+      <if test="icoDescription != null" >
+        icoDescription = #{icoDescription},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="IndexIcos" >
+    update tbindexicos
+    set icoName = #{icoName},
+      icoPath = #{icoPath},
+      accessUrl = #{accessUrl},
+      icoType = #{icoType,jdbcType=CHAR},
+      icoDescription = #{icoDescription}
+    where id = #{id}
+  </update>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from tbindexicos
+    where id = #{id}
+  </select>
+
+  <!--
+   @author : zga
+   @date : 2016-01-07
+   查询所有的图标
+  -->
+  <select id="selectAllIcos" resultType="IndexIcos">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM
+    tbindexicos
+  </select>
+</mapper>

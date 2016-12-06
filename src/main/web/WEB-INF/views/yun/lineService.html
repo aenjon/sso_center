@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="../../public/yun">
+    <head></head>
+    <body>
+        <div class="container"  layout:fragment="service">
+            <div class="servicIcon">
+                <div class="servicIcon2"></div>
+            </div>
+            <div class="serverWindow">
+                <div class="serverTop">
+                    <div class="robot"></div>
+                    <div class="robotTitle">在线客服</div>
+                    <ul class="closeRobot">
+                        <li class="close1"></li>
+                        <li class="close2"></li>
+                        <li class="close3"></li>
+                    </ul>
+                </div>
+                <section class="serverSection">
+                    <div class="dialogWindow">
+                        <div class="dialog1">
+                            <div class="robotImg">
+                                <img src="../../../static/images/yun/peoImg.png" />
+                            </div>
+                            <div class="talk1">
+                                <div class="talkL"></div>
+                                <div class="talkR">尊敬的客户您好，欢迎使用在线客服，在线客服服务时间 9：00——18：00周一到周五 欢迎您前来咨询，我们会竭诚为您服务。</div>
+                            </div>
+                        </div>
+                        <div class="dialog1">
+                            <div class="robotImg">
+                                <img src="../../../static/images/yun/robotImg.png" />
+                            </div>
+                            <div class="talk1">
+                                <div class="talkL"></div>
+                                <div class="talkR">华师京城以“科技让教育更精彩”为企业愿景，以“共筑教育云平台，创建教学新模式”为企业使命。尊敬的客户您好，欢迎进入上海华师京城网络科技股份有限公司客服中心，我们将竭诚为您服务。<br/>
+                                    <span>回复1连接在线客服<br/>回复2去到帮助中心</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dialog2">
+                            <div class="peoImg">
+                                <img src="../../../static/images/yun/peoImg.png" />
+                            </div>
+                            <div class="talk2">
+                                <div class="talkLL"></div>
+                                <div class="talkRR">2</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sendWindow">
+                        <div class="sendWindowTop">
+                            <ul class="textOperate">
+                                <li class="O1"></li>
+                                <li class="O2"></li>
+                                <li class="O3"></li>
+                            </ul>
+                        </div>
+                        <div class="sendText">
+                            <textarea></textarea>
+                            <input type="button" class="sendTo" value="发送 (Enter)"/>
+                        </div>
+                    </div>
+                </section>
+                <aside class="serverAside">
+                    <div class="help">获取更多帮助</div>
+                    <ul class="helpWay">
+                        <li>
+                            <div class="helpImg h1">
+                                <div class="weichar"></div>
+                            </div>
+                            <div class="helpFont">微信公众号</div>
+                            <div class="helpFont">hsjc6666</div>
+                        </li>
+                        <li>
+                            <div class="helpImg h2"></div>
+                            <div class="helpFont">发送邮件到</div>
+                            <div class="helpFont">support@hsjc.com.cn</div>
+                        </li>
+                        <li>
+                            <div class="helpImg h3"></div>
+                            <div class="helpFont">400-880-5056</div>
+                            <div class="helpFont">9:00-18:00 周一至周五</div>
+                        </li>
+                    </ul>
+                </aside>
+            </div>
+            <script type="text/javascript">
+                $(function(){
+                    $('.servicIcon').click(function(){
+                        $('.servicIcon2').show();
+                        $('.serverWindow').show();
+                    });
+
+                    $('.close1').click(function(){
+                        $('.serverWindow').hide();
+                    });
+
+                    $('.close3').click(function(){
+                        $('.serverWindow').hide();
+                        $('.servicIcon2').hide();
+                    });
+
+                    $('.servicIcon2').click(function(){
+                        $('.serverWindow').show();
+                    });
+
+                    $('.helpImg.h1').hover(function(){
+                        $(this).find('.weichar').show();
+                    },function(){
+                        $(this).find('.weichar').hide();
+                    });
+
+                });
+            </script>
+        </div>
+    </body>
+</html>

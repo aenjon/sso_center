@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	  layout:decorator="../../public/register">
+	<head>
+		<style type="text/css">
+			.Validform_checktip{margin-left:-35px;}
+		</style>
+	</head>
+	<body>
+		<div class="container-fluid" layout:fragment="content">
+			<div class="center">
+				<aside class="aside1" th:if="${type eq 'student'}" style="display: block;">我是学生</aside>
+				<aside class="aside2" th:if="${type eq 'teacher'}" style="display: block;">我是老师</aside>
+
+				<section class="section">
+					<form class="regForm" method="post">
+						<input type="hidden" th:value="${type}" name="type"/>
+
+						<div class="input_box">
+							<label><div class="input_box_l">用户名</div></label>
+							<input type="text" name="username" placeholder="请输入8到20位英文和数字" class="inputxt" />
+							<div class="mistake"></div>
+							<div class="correct"></div>
+						</div>
+						<div class="input_box">
+							<div class="input_box_l">邮箱</div>
+							<input type="text" name="email" placeholder="用于绑定账号以及验证" class="inputxt"/>
+							<div class="mistake"></div>
+							<div class="correct"></div>
+						</div>
+						<!--姓名、性别-->
+						<div class="input_box">
+							<div class="input_box_l">姓名</div>
+							<input type="text" name="realName" placeholder="姓名" class="inputxt"/>
+							<div class="mistake"></div>
+							<div class="correct"></div>
+						</div>
+						<div class="input_box">
+							<div class="input_box_l">性别</div>
+							<ul class="sex">
+								<li class="selected">男
+									<input type="radio" name="gender" value="1" placeholder="男" checked="checked"/>
+								</li>
+								<li>女
+									<input type="radio" name="gender" value="0" placeholder="女"/>
+								</li>
+							</ul>
+							<div class="mistake"></div>
+							<div class="correct"></div>
+						</div>
+						<div class="input_box">
+							<div class="input_box_l" >密码</div>
+							<input type="password" placeholder="6~10个英文和数字,区分大小写" name="password" class="inputxt"/>
+							<div class="mistake"></div>
+							<div class="correct"></div>
+						</div>
+						<div class="input_box">
+							<div class="input_box_l">确认密码</div>
+							<input type="password" placeholder="6~10个英文和数字,区分大小写"  name="password2" class="inputxt"/>
+							<div class="mistake"></div>
+							<div class="correct"></div>
+						</div>
+						<div class="input_box">
+							<div class="input_box_l" style="background: none;">验证码</div>
+							<input type="text" name="code" placeholder="请输入右侧验证码" style="width:128px;text-indent:0;text-align: center" class="inputxt"/>
+							<img id="vimg" src="/code.html"/>
+						</div>
+						<div class="context">
+							<a href="/page/register/1.html" class="prev">上一步</a>
+							<input type="submit" class="next" value="下一步"/>
+						</div>
+					</form>
+				</section>
+			</div>
+
+			<script type="text/javascript" th:src="@{/static/scripts/register/register2.js}" src="/static/scripts/register/register2.js"></script>
+		</div>
+	</body>
+</html>
+

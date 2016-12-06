@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="../../public/backstage">
+    <head>
+
+    </head>
+    <body>
+
+
+                <div id="content1" layout:fragment="content">
+                    <div class="index_title">新增客服</div>
+                        <div class="service_box">
+                            <div class="create_title">生成新的客服</div>
+                            <ul class="create_person">
+                                <li>新增客服员用户名：张超</li>
+                                <li>客服员ID号：1007</li>
+                                <li>绑定阿里悟空ID号：1508</li>
+                                <li>工作台密码：111111</li>
+                            </ul>
+                            <ul class="build_submit">
+                                <li class="selected">
+                                    <a href="serviceList.html" class="selected">完成</a>
+                                </li>
+                                <li>
+                                    <a href="newService.html" class="selected">继续添加</a>
+                                </li>
+                            </ul>
+                        </div>
+                    <script type="text/javascript">
+                        $(function(){
+                            $('#new_service').addClass('selected');
+                        })
+
+
+                    </script>
+
+                </div>
+
+
+    </body>
+</html>

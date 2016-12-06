@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:th="http://www.thymeleaf.org"
+          xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+          layout:decorator="../../public/backstage">
+    <head></head>
+    <body>
+        <div id="content" layout:fragment="content">
+            <div class="index_title">一次客服管理</div>
+
+            <div class="tab_search">
+                <div class="Single_Log">确认筛选项：</div>
+                <select>
+                    <option>全部客服员</option>
+                    <option>客服员ID0001</option>
+                    <option>客服员ID0002</option>
+                    <option>客服员ID0003</option>
+                    <option>客服员ID0004</option>
+                    <option>客服员ID0005</option>
+                    <option>客服员ID0006</option>
+                </select>
+                <select>
+                    <option>全部会话</option>
+                    <option>最近一周</option>
+                    <option>最近一月</option>
+                    <option>最近一年</option>
+                </select>
+                <select>
+                    <option>全部状态</option>
+                    <option>结束</option>
+                    <option>转二次客服</option>
+                </select>
+                <div class="tab_fn">
+                    <input type="button" value="查询" class="tab_fnLi"/>
+                    <input type="reset" value="重置" class="tab_fnLi"/>
+                </div>
+                <input type="search" placeholder="输入关键字…"/>
+            </div>
+
+            <table class="service_tab">
+                <thead>
+                    <tr>
+                        <th>一次会话ID</th>
+                        <th>接待客户用户名</th>
+                        <th>接待客户系统详情</th>
+                        <th>会话状态</th>
+                        <th>聊天记录</th>
+                        <th>满意度评价</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>0001</td>
+                        <td>张超</td>
+                        <td>win7，</td>
+                        <td>转二次客服</td>
+                        <td>
+                            <a href="lookDetails.html">查看详情</a>
+                        </td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <td>0001</td>
+                        <td>张超</td>
+                        <td>win7，</td>
+                        <td>结束</td>
+                        <td>
+                            <a href="lookDetails.html">查看详情</a>
+                        </td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <td>0001</td>
+                        <td>张超</td>
+                        <td>win7，</td>
+                        <td>结束</td>
+                        <td>
+                            <a href="lookDetails.html">查看详情</a>
+                        </td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <td>0001</td>
+                        <td>张超</td>
+                        <td>win7，</td>
+                        <td>结束</td>
+                        <td>
+                            <a href="lookDetails.html">查看详情</a>
+                        </td>
+                        <td>10</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tab_foot">
+                <div class="pages">
+                    <div class="jil">共58999条记录</div>
+                    <a href="#" class="page">首页</a>
+                    <a href="#" class="page">上一页</a>
+                    <a href="#" class="page">下一页</a>
+                    <a href="#" class="page">尾页</a>
+                    <select>
+                        <option>1/20</option>
+                        <option>2/20</option>
+                        <option>3/20</option>
+                        <option>4/20</option>
+                        <option>5/20</option>
+                    </select>
+                </div>
+            </div>
+
+            <script type="text/javascript" th:src="@{/static/scripts/backstage/oneManage.js}" src="/static/scripts/backstage/oneManage.js"></script>
+        </div>
+    </body>
+</html>

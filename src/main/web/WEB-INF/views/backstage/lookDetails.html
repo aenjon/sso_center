@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="../../public/backstage">
+    <head></head>
+    <body>
+
+
+
+                <div id="content" layout:fragment="content">
+                    <div class="index_title">一次客服管理</div>
+                    <div class="details_box">
+                        <div class="examine_box_aside">
+                            <div class="examine_title">会话详情</div>
+                        </div>
+                        <div class="examine_box_details"></div>
+                        <div class="examine_box_aside">
+                            <a href="oneManage.html" class="close_window">关闭</a>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        $(function(){
+                            $('#one_manage').addClass('selected');
+                        });
+                    </script>
+                </div>
+
+
+
+    </body>
+</html>

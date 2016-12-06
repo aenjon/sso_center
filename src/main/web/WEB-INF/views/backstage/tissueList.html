@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="../../public/backstage">
+    <head>
+        <title>组织机构列表</title>
+    </head>
+    <body>
+        <div id="content" layout:fragment="content">
+            <div class="index_title">组织机构列表</div>
+            <div class="tab_search">
+                <select name="status" class="queryCondition">
+                    <option value="s" th:if="${status == 's'}" selected="selected">机构状态</option>
+                    <option value="s" th:unless="${status == 's'}">机构状态</option>
+
+                    <option value="0" th:if="${status == '0'}" selected="selected">删除</option>
+                    <option value="0" th:unless="${status == '0'}">删除</option>
+
+                    <option value="1" th:if="${status == '1'}" selected="selected">正常</option>
+                    <option value="1" th:unless="${status == '1'}">正常</option>
+                </select>
+
+                <select name="createTime" class="queryCondition">
+                    <option value="0" th:if="${createTime == '0'}" selected="selected">时间</option>
+                    <option value="0" th:unless="${createTime == '0'}">时间</option>
+
+                    <option value="3" th:if="${createTime == '3'}" selected="selected">近三天来</option>
+                    <option value="3" th:unless="${createTime == '3'}">近三天来</option>
+
+                    <option value="7" th:if="${createTime == '7'}" selected="selected">近一周来</option>
+                    <option value="7" th:unless="${createTime == '7'}">近一周来</option>
+
+                    <option value="30" th:if="${createTime == '30'}" selected="selected">近一月来</option>
+                    <option value="30" th:unless="${createTime == '30'}">近一月来</option>
+                </select>
+                <div class="tab_fn">
+                    <input type="button" value="查询" class="tab_fnLi"/>
+                </div>
+                <input type="search" name="queryOrganizationName" th:if="${organizationName == '0'}" placeholder="输入组织机构名…"/>
+                <input type="search" name="queryOrganizationName" th:unless="${organizationName == '0'}" th:value="${organizationName}" placeholder="输入组织机构名…"/>
+
+            </div>
+            <table class="tissue_tab">
+                <thead>
+                    <tr>
+                        <th>组织机构码</th>
+                        <th>组织机构名称</th>
+                        <th>状态</th>
+                        <th>添加时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="organization : ${organizationList}">
+                        <input type="hidden" name="organizationId" th:value="${organization.id}"/>
+                        <input type="hidden" name="organizationCode" th:value="${organization.organizationCode}"/>
+                        <input type="hidden" name="organizationName" th:value="${organization.organizationName}"/>
+                        <input type="hidden" name="organizationStatus" th:value="${organization.status}"/>
+                        <input type="hidden" name="organizationCreateTime" th:value="${organization.createTime}"/>
+
+                        <td th:text="${organization.organizationCode}"></td>
+                        <td th:text="${organization.organizationName}"></td>
+
+                        <td th:if="${organization.status == '0'}">删除</td>
+                        <td th:if="${organization.status == '1'}">正常</td>
+
+                        <td th:text="${organization.createTime}"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tab_foot">
+                <div class="all_select"><input type="checkbox" class="checkAll" />全选</div>
+                <ul class="handle">
+                    <li>修改基本信息</li>
+                    <li>删除</li>
+                </ul>
+                <div class="pages">
+                    <div class="jil">共<font th:text="${total}"></font>条记录</div>
+                    <a th:href="@{'/page/sso/tissueList/1,' + ${pageSize} + ',' + ${status} + ',' + ${organizationName} + ',' + ${createTime} +'.html'}" class="page">首页</a>
+
+                    <a th:if="${hasPrevioisPage == true}"
+                       th:href="@{'/page/sso/tissueList/' + ${prePage} + ',' + ${pageSize} + ',' + ${status} + ',' + ${organizationName} + ',' + ${createTime} + '.html'}" class="page">上一页</a>
+
+                    <a th:each="pageN : ${navigatepageNums}"
+                       th:href="@{'/page/sso/tissueList/' + ${pageN} + ',' + ${pageSize} + ',' + ${status} + ',' + ${organizationName} + ',' + ${createTime} + '.html'}" th:text="${pageN}" class="page"></a>
+
+                    <a th:if="${hastNextPage == true}"
+                       th:href="@{'/page/sso/tissueList/' + ${nextPage} + ',' + ${pageSize} + ',' + ${status} + ',' + ${organizationName} + ',' + ${createTime} + '.html'}" class="page">下一页</a>
+
+                    <a th:href="@{'/page/sso/tissueList/' + ${pages} + ',' + ${pageSize} + ',' + ${status} + ',' + ${organizationName} + ',' + ${createTime} + '.html'}" class="page">尾页</a>
+                </div>
+            </div>
+
+            <script type="text/javascript" th:src="@{/static/scripts/backstage/tissueList.js}" src="/static/scripts/backstage/tissueList.js"></script>
+        </div>
+    </body>
+</html>
